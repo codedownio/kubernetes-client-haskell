@@ -1,9 +1,12 @@
 
-resolver: lts-19.7
+resolver: nightly-2022-07-07
 
 extra-deps:
-- oidc-client-0.6.0.0@sha256:2079dc5c9dfb5b3e2fa93098254ca16787c01a0cd3634b1d84afe84c9a6c4825,3368
-- jose-jwt-0.9.4@sha256:6db77f81cfcf81cf7faf8a4dc4b2110c1603dbb94249d49d069a17b4897e9d69,3560
+- git: https://github.com/codedownio/haskell-oidc-client
+  commit: c2c89be161c6797879cef4469d19344c34d990b7
+
+- git: https://github.com/HugoDaniel/timerep
+  commit: a459255a2e27fbeaaaddb43bdc7cf42e673bfc46
 
 packages:
 - kubernetes
