@@ -16,6 +16,7 @@ Module : Kubernetes.OpenAPI.Model
 {-# LANGUAGE DeriveFoldable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DeriveTraversable #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
@@ -96,6 +97,9 @@ newtype FieldManager = FieldManager { unFieldManager :: Text } deriving (P.Eq, P
 
 -- ** FieldSelector
 newtype FieldSelector = FieldSelector { unFieldSelector :: Text } deriving (P.Eq, P.Show)
+
+-- ** FieldValidation
+newtype FieldValidation = FieldValidation { unFieldValidation :: Text } deriving (P.Eq, P.Show)
 
 -- ** Follow
 newtype Follow = Follow { unFollow :: Bool } deriving (P.Eq, P.Show)

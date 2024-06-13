@@ -98,6 +98,11 @@ instance HasOptionalParam CreateClusterCustomObject FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam CreateClusterCustomObject FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
+
 -- | @*/*@
 instance MimeType mtype => Consumes CreateClusterCustomObject mtype
 
@@ -146,6 +151,11 @@ instance HasOptionalParam CreateNamespacedCustomObject DryRun where
 instance HasOptionalParam CreateNamespacedCustomObject FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam CreateNamespacedCustomObject FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | @*/*@
 instance MimeType mtype => Consumes CreateNamespacedCustomObject mtype
@@ -231,6 +241,11 @@ instance HasOptionalParam DeleteCollectionClusterCustomObject Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
+-- | /Optional Param/ "labelSelector" - A selector to restrict the list of returned objects by their labels. Defaults to everything.
+instance HasOptionalParam DeleteCollectionClusterCustomObject LabelSelector where
+  applyOptionalParam req (LabelSelector xs) =
+    req `addQuery` toQuery ("labelSelector", Just xs)
+
 -- | /Optional Param/ "gracePeriodSeconds" - The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 instance HasOptionalParam DeleteCollectionClusterCustomObject GracePeriodSeconds where
   applyOptionalParam req (GracePeriodSeconds xs) =
@@ -285,6 +300,11 @@ instance HasBodyParam DeleteCollectionNamespacedCustomObject V1DeleteOptions
 instance HasOptionalParam DeleteCollectionNamespacedCustomObject Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
+
+-- | /Optional Param/ "labelSelector" - A selector to restrict the list of returned objects by their labels. Defaults to everything.
+instance HasOptionalParam DeleteCollectionNamespacedCustomObject LabelSelector where
+  applyOptionalParam req (LabelSelector xs) =
+    req `addQuery` toQuery ("labelSelector", Just xs)
 
 -- | /Optional Param/ "gracePeriodSeconds" - The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 instance HasOptionalParam DeleteCollectionNamespacedCustomObject GracePeriodSeconds where
@@ -362,6 +382,27 @@ instance MimeType mtype => Consumes DeleteNamespacedCustomObject mtype
 
 -- | @application/json@
 instance Produces DeleteNamespacedCustomObject MimeJSON
+
+
+-- *** getAPIResources
+
+-- | @GET \/apis\/{group}\/{version}@
+-- 
+-- get available resources
+-- 
+-- AuthMethod: 'AuthApiKeyBearerToken'
+-- 
+getAPIResources
+  :: Group -- ^ "group" -  The custom resource's group name
+  -> Version -- ^ "version" -  The custom resource's version
+  -> KubernetesRequest GetAPIResources MimeNoContent V1APIResourceList MimeJSON
+getAPIResources (Group group) (Version version) =
+  _mkRequest "GET" ["/apis/",toPath group,"/",toPath version]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
+
+data GetAPIResources  
+-- | @application/json@
+instance Produces GetAPIResources MimeJSON
 
 
 -- *** getClusterCustomObject
@@ -713,6 +754,11 @@ instance HasOptionalParam PatchClusterCustomObject FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam PatchClusterCustomObject FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
+
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 instance HasOptionalParam PatchClusterCustomObject Force where
   applyOptionalParam req (Force xs) =
@@ -762,6 +808,11 @@ instance HasOptionalParam PatchClusterCustomObjectScale DryRun where
 instance HasOptionalParam PatchClusterCustomObjectScale FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam PatchClusterCustomObjectScale FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 instance HasOptionalParam PatchClusterCustomObjectScale Force where
@@ -816,6 +867,11 @@ instance HasOptionalParam PatchClusterCustomObjectStatus DryRun where
 instance HasOptionalParam PatchClusterCustomObjectStatus FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam PatchClusterCustomObjectStatus FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 instance HasOptionalParam PatchClusterCustomObjectStatus Force where
@@ -873,6 +929,11 @@ instance HasOptionalParam PatchNamespacedCustomObject FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam PatchNamespacedCustomObject FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
+
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 instance HasOptionalParam PatchNamespacedCustomObject Force where
   applyOptionalParam req (Force xs) =
@@ -923,6 +984,11 @@ instance HasOptionalParam PatchNamespacedCustomObjectScale DryRun where
 instance HasOptionalParam PatchNamespacedCustomObjectScale FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam PatchNamespacedCustomObjectScale FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 instance HasOptionalParam PatchNamespacedCustomObjectScale Force where
@@ -981,6 +1047,11 @@ instance HasOptionalParam PatchNamespacedCustomObjectStatus FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam PatchNamespacedCustomObjectStatus FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
+
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
 instance HasOptionalParam PatchNamespacedCustomObjectStatus Force where
   applyOptionalParam req (Force xs) =
@@ -1038,6 +1109,11 @@ instance HasOptionalParam ReplaceClusterCustomObject FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam ReplaceClusterCustomObject FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
+
 -- | @*/*@
 instance MimeType mtype => Consumes ReplaceClusterCustomObject mtype
 
@@ -1080,6 +1156,11 @@ instance HasOptionalParam ReplaceClusterCustomObjectScale DryRun where
 instance HasOptionalParam ReplaceClusterCustomObjectScale FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam ReplaceClusterCustomObjectScale FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | @*/*@
 instance MimeType mtype => Consumes ReplaceClusterCustomObjectScale mtype
@@ -1127,6 +1208,11 @@ instance HasOptionalParam ReplaceClusterCustomObjectStatus DryRun where
 instance HasOptionalParam ReplaceClusterCustomObjectStatus FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam ReplaceClusterCustomObjectStatus FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | @*/*@
 instance MimeType mtype => Consumes ReplaceClusterCustomObjectStatus mtype
@@ -1177,6 +1263,11 @@ instance HasOptionalParam ReplaceNamespacedCustomObject FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam ReplaceNamespacedCustomObject FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
+
 -- | @*/*@
 instance MimeType mtype => Consumes ReplaceNamespacedCustomObject mtype
 
@@ -1220,6 +1311,11 @@ instance HasOptionalParam ReplaceNamespacedCustomObjectScale DryRun where
 instance HasOptionalParam ReplaceNamespacedCustomObjectScale FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam ReplaceNamespacedCustomObjectScale FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | @*/*@
 instance MimeType mtype => Consumes ReplaceNamespacedCustomObjectScale mtype
@@ -1268,6 +1364,11 @@ instance HasOptionalParam ReplaceNamespacedCustomObjectStatus DryRun where
 instance HasOptionalParam ReplaceNamespacedCustomObjectStatus FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "fieldValidation" - fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields. Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23. - Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered. (optional)
+instance HasOptionalParam ReplaceNamespacedCustomObjectStatus FieldValidation where
+  applyOptionalParam req (FieldValidation xs) =
+    req `addQuery` toQuery ("fieldValidation", Just xs)
 
 -- | @*/*@
 instance MimeType mtype => Consumes ReplaceNamespacedCustomObjectStatus mtype

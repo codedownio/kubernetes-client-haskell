@@ -59,7 +59,7 @@ import qualified Prelude as P
 
 -- *** getServiceAccountIssuerOpenIDConfiguration
 
--- | @GET \/.well-known\/openid-configuration\/@
+-- | @GET \/.well-known\/openid-configuration@
 -- 
 -- get service account issuer OpenID configuration, also known as the 'OIDC discovery doc'
 -- 
@@ -68,7 +68,7 @@ import qualified Prelude as P
 getServiceAccountIssuerOpenIDConfiguration
   :: KubernetesRequest GetServiceAccountIssuerOpenIDConfiguration MimeNoContent Text MimeJSON
 getServiceAccountIssuerOpenIDConfiguration =
-  _mkRequest "GET" ["/.well-known/openid-configuration/"]
+  _mkRequest "GET" ["/.well-known/openid-configuration"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
 
 data GetServiceAccountIssuerOpenIDConfiguration  

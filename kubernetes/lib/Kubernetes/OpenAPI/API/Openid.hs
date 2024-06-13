@@ -59,7 +59,7 @@ import qualified Prelude as P
 
 -- *** getServiceAccountIssuerOpenIDKeyset
 
--- | @GET \/openid\/v1\/jwks\/@
+-- | @GET \/openid\/v1\/jwks@
 -- 
 -- get service account issuer OpenID JSON Web Key Set (contains public token verification keys)
 -- 
@@ -68,7 +68,7 @@ import qualified Prelude as P
 getServiceAccountIssuerOpenIDKeyset
   :: KubernetesRequest GetServiceAccountIssuerOpenIDKeyset MimeNoContent Text MimeJwkSetjson
 getServiceAccountIssuerOpenIDKeyset =
-  _mkRequest "GET" ["/openid/v1/jwks/"]
+  _mkRequest "GET" ["/openid/v1/jwks"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
 
 data GetServiceAccountIssuerOpenIDKeyset  
