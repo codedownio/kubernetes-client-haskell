@@ -15,22 +15,17 @@
       let
         pkgs = import nixpkgs { inherit system; };
 
-        generateVersion = k8sVersion: pkgVersion: pkgs.writeShellScriptBin "generate-kubernetes-client-core-${k8sVersion}" ''
-          export KUBERNETES_VERSION="${k8sVersion}"
-          out="kubernetes-${k8sVersion}"
-          ${pkgs.bash}/bin/bash "${gen}/openapi/haskell.sh" "$out" settings
-
-          echo "OUT: $out"
-
-          ${pkgs.gnused}/bin/sed -i 's/^version:\s*\(.*\)/version:        ${pkgVersion}/' "$out/kubernetes-client-core.cabal"
-        '';
-
       in {
-        packages = {
-          hello = pkgs.hello;
-          default = pkgs.hello;
+        packages = rec {
+          default = generate;
 
-          generate_1_20 = generateVersion "1.20" "1.20.0";
+          generate = pkgs.writeShellScriptBin "generate-kubernetes-client-core.sh" ''
+            export KUBERNETES_VERSION="$1"
+            PACKAGE_VERSION="$2"
+            out="kubernetes-$KUBERNETES_VERSION"
+            ${pkgs.bash}/bin/bash "${gen}/openapi/haskell.sh" "$out" settings
+            ${pkgs.gnused}/bin/sed -i "s/^version:\s*\(.*\)/version:        $PACKAGE_VERSION/" "$out/kubernetes-client-core.cabal"
+          '';
         };
       });
 }

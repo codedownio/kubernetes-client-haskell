@@ -1,5 +1,9 @@
 resolver: nightly-2024-06-12
 
+# This repo contains multiple versions of kubernetes-client-core, in the
+# kubernetes-* directories.
+# You should uncomment exactly one to build kubernetes-client against, or
+# else Stack will get confused.
 packages:
 # - kubernetes-1.20
 # - kubernetes-1.21
