@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-KUBERNETES_VERSION="1.21"
-
 # Kubernetes branch to get the OpenAPI spec from.
 export KUBERNETES_BRANCH="release-${KUBERNETES_VERSION}"
 
