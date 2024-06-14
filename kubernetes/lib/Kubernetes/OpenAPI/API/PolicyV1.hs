@@ -9,7 +9,7 @@
 -}
 
 {-|
-Module : Kubernetes.OpenAPI.API.EventsV1beta1
+Module : Kubernetes.OpenAPI.API.PolicyV1
 -}
 
 {-# LANGUAGE FlexibleContexts #-}
@@ -19,7 +19,7 @@ Module : Kubernetes.OpenAPI.API.EventsV1beta1
 {-# LANGUAGE OverloadedStrings #-}
 {-# OPTIONS_GHC -fno-warn-name-shadowing -fno-warn-unused-binds -fno-warn-unused-imports #-}
 
-module Kubernetes.OpenAPI.API.EventsV1beta1 where
+module Kubernetes.OpenAPI.API.PolicyV1 where
 
 import Kubernetes.OpenAPI.Core
 import Kubernetes.OpenAPI.MimeTypes
@@ -55,210 +55,210 @@ import qualified Prelude as P
 -- * Operations
 
 
--- ** EventsV1beta1
+-- ** PolicyV1
 
--- *** createNamespacedEvent
+-- *** createNamespacedPodDisruptionBudget
 
--- | @POST \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events@
+-- | @POST \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets@
 -- 
--- create an Event
+-- create a PodDisruptionBudget
 -- 
 -- AuthMethod: 'AuthApiKeyBearerToken'
 -- 
-createNamespacedEvent
-  :: (Consumes CreateNamespacedEvent contentType, MimeRender contentType V1beta1Event)
+createNamespacedPodDisruptionBudget
+  :: (Consumes CreateNamespacedPodDisruptionBudget contentType, MimeRender contentType V1PodDisruptionBudget)
   => ContentType contentType -- ^ request content-type ('MimeType')
   -> Accept accept -- ^ request accept ('MimeType')
-  -> V1beta1Event -- ^ "body"
+  -> V1PodDisruptionBudget -- ^ "body"
   -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest CreateNamespacedEvent contentType V1beta1Event accept
-createNamespacedEvent _  _ body (Namespace namespace) =
-  _mkRequest "POST" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events"]
+  -> KubernetesRequest CreateNamespacedPodDisruptionBudget contentType V1PodDisruptionBudget accept
+createNamespacedPodDisruptionBudget _  _ body (Namespace namespace) =
+  _mkRequest "POST" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
     `setBodyParam` body
 
-data CreateNamespacedEvent 
-instance HasBodyParam CreateNamespacedEvent V1beta1Event 
+data CreateNamespacedPodDisruptionBudget 
+instance HasBodyParam CreateNamespacedPodDisruptionBudget V1PodDisruptionBudget 
 
 -- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam CreateNamespacedEvent Pretty where
+instance HasOptionalParam CreateNamespacedPodDisruptionBudget Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
 -- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-instance HasOptionalParam CreateNamespacedEvent DryRun where
+instance HasOptionalParam CreateNamespacedPodDisruptionBudget DryRun where
   applyOptionalParam req (DryRun xs) =
     req `addQuery` toQuery ("dryRun", Just xs)
 
 -- | /Optional Param/ "fieldManager" - fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
-instance HasOptionalParam CreateNamespacedEvent FieldManager where
+instance HasOptionalParam CreateNamespacedPodDisruptionBudget FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
 -- | @*/*@
-instance MimeType mtype => Consumes CreateNamespacedEvent mtype
+instance MimeType mtype => Consumes CreateNamespacedPodDisruptionBudget mtype
 
 -- | @application/json@
-instance Produces CreateNamespacedEvent MimeJSON
+instance Produces CreateNamespacedPodDisruptionBudget MimeJSON
 -- | @application/vnd.kubernetes.protobuf@
-instance Produces CreateNamespacedEvent MimeVndKubernetesProtobuf
+instance Produces CreateNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
 -- | @application/yaml@
-instance Produces CreateNamespacedEvent MimeYaml
+instance Produces CreateNamespacedPodDisruptionBudget MimeYaml
 
 
--- *** deleteCollectionNamespacedEvent
+-- *** deleteCollectionNamespacedPodDisruptionBudget
 
--- | @DELETE \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events@
+-- | @DELETE \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets@
 -- 
--- delete collection of Event
+-- delete collection of PodDisruptionBudget
 -- 
 -- AuthMethod: 'AuthApiKeyBearerToken'
 -- 
-deleteCollectionNamespacedEvent
-  :: (Consumes DeleteCollectionNamespacedEvent contentType)
+deleteCollectionNamespacedPodDisruptionBudget
+  :: (Consumes DeleteCollectionNamespacedPodDisruptionBudget contentType)
   => ContentType contentType -- ^ request content-type ('MimeType')
   -> Accept accept -- ^ request accept ('MimeType')
   -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest DeleteCollectionNamespacedEvent contentType V1Status accept
-deleteCollectionNamespacedEvent _  _ (Namespace namespace) =
-  _mkRequest "DELETE" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events"]
+  -> KubernetesRequest DeleteCollectionNamespacedPodDisruptionBudget contentType V1Status accept
+deleteCollectionNamespacedPodDisruptionBudget _  _ (Namespace namespace) =
+  _mkRequest "DELETE" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
 
-data DeleteCollectionNamespacedEvent 
-instance HasBodyParam DeleteCollectionNamespacedEvent V1DeleteOptions 
+data DeleteCollectionNamespacedPodDisruptionBudget 
+instance HasBodyParam DeleteCollectionNamespacedPodDisruptionBudget V1DeleteOptions 
 
 -- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam DeleteCollectionNamespacedEvent Pretty where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
 -- | /Optional Param/ "continue" - The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-instance HasOptionalParam DeleteCollectionNamespacedEvent Continue where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget Continue where
   applyOptionalParam req (Continue xs) =
     req `addQuery` toQuery ("continue", Just xs)
 
 -- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-instance HasOptionalParam DeleteCollectionNamespacedEvent DryRun where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget DryRun where
   applyOptionalParam req (DryRun xs) =
     req `addQuery` toQuery ("dryRun", Just xs)
 
 -- | /Optional Param/ "fieldSelector" - A selector to restrict the list of returned objects by their fields. Defaults to everything.
-instance HasOptionalParam DeleteCollectionNamespacedEvent FieldSelector where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget FieldSelector where
   applyOptionalParam req (FieldSelector xs) =
     req `addQuery` toQuery ("fieldSelector", Just xs)
 
 -- | /Optional Param/ "gracePeriodSeconds" - The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-instance HasOptionalParam DeleteCollectionNamespacedEvent GracePeriodSeconds where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget GracePeriodSeconds where
   applyOptionalParam req (GracePeriodSeconds xs) =
     req `addQuery` toQuery ("gracePeriodSeconds", Just xs)
 
 -- | /Optional Param/ "labelSelector" - A selector to restrict the list of returned objects by their labels. Defaults to everything.
-instance HasOptionalParam DeleteCollectionNamespacedEvent LabelSelector where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget LabelSelector where
   applyOptionalParam req (LabelSelector xs) =
     req `addQuery` toQuery ("labelSelector", Just xs)
 
 -- | /Optional Param/ "limit" - limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-instance HasOptionalParam DeleteCollectionNamespacedEvent Limit where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget Limit where
   applyOptionalParam req (Limit xs) =
     req `addQuery` toQuery ("limit", Just xs)
 
 -- | /Optional Param/ "orphanDependents" - Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
-instance HasOptionalParam DeleteCollectionNamespacedEvent OrphanDependents where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget OrphanDependents where
   applyOptionalParam req (OrphanDependents xs) =
     req `addQuery` toQuery ("orphanDependents", Just xs)
 
 -- | /Optional Param/ "propagationPolicy" - Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-instance HasOptionalParam DeleteCollectionNamespacedEvent PropagationPolicy where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget PropagationPolicy where
   applyOptionalParam req (PropagationPolicy xs) =
     req `addQuery` toQuery ("propagationPolicy", Just xs)
 
 -- | /Optional Param/ "resourceVersion" - resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
-instance HasOptionalParam DeleteCollectionNamespacedEvent ResourceVersion where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget ResourceVersion where
   applyOptionalParam req (ResourceVersion xs) =
     req `addQuery` toQuery ("resourceVersion", Just xs)
 
 -- | /Optional Param/ "resourceVersionMatch" - resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
-instance HasOptionalParam DeleteCollectionNamespacedEvent ResourceVersionMatch where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget ResourceVersionMatch where
   applyOptionalParam req (ResourceVersionMatch xs) =
     req `addQuery` toQuery ("resourceVersionMatch", Just xs)
 
 -- | /Optional Param/ "timeoutSeconds" - Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-instance HasOptionalParam DeleteCollectionNamespacedEvent TimeoutSeconds where
+instance HasOptionalParam DeleteCollectionNamespacedPodDisruptionBudget TimeoutSeconds where
   applyOptionalParam req (TimeoutSeconds xs) =
     req `addQuery` toQuery ("timeoutSeconds", Just xs)
 
 -- | @*/*@
-instance MimeType mtype => Consumes DeleteCollectionNamespacedEvent mtype
+instance MimeType mtype => Consumes DeleteCollectionNamespacedPodDisruptionBudget mtype
 
 -- | @application/json@
-instance Produces DeleteCollectionNamespacedEvent MimeJSON
+instance Produces DeleteCollectionNamespacedPodDisruptionBudget MimeJSON
 -- | @application/vnd.kubernetes.protobuf@
-instance Produces DeleteCollectionNamespacedEvent MimeVndKubernetesProtobuf
+instance Produces DeleteCollectionNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
 -- | @application/yaml@
-instance Produces DeleteCollectionNamespacedEvent MimeYaml
+instance Produces DeleteCollectionNamespacedPodDisruptionBudget MimeYaml
 
 
--- *** deleteNamespacedEvent
+-- *** deleteNamespacedPodDisruptionBudget
 
--- | @DELETE \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events\/{name}@
+-- | @DELETE \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}@
 -- 
--- delete an Event
+-- delete a PodDisruptionBudget
 -- 
 -- AuthMethod: 'AuthApiKeyBearerToken'
 -- 
-deleteNamespacedEvent
-  :: (Consumes DeleteNamespacedEvent contentType)
+deleteNamespacedPodDisruptionBudget
+  :: (Consumes DeleteNamespacedPodDisruptionBudget contentType)
   => ContentType contentType -- ^ request content-type ('MimeType')
   -> Accept accept -- ^ request accept ('MimeType')
-  -> Name -- ^ "name" -  name of the Event
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
   -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest DeleteNamespacedEvent contentType V1Status accept
-deleteNamespacedEvent _  _ (Name name) (Namespace namespace) =
-  _mkRequest "DELETE" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events/",toPath name]
+  -> KubernetesRequest DeleteNamespacedPodDisruptionBudget contentType V1Status accept
+deleteNamespacedPodDisruptionBudget _  _ (Name name) (Namespace namespace) =
+  _mkRequest "DELETE" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
 
-data DeleteNamespacedEvent 
-instance HasBodyParam DeleteNamespacedEvent V1DeleteOptions 
+data DeleteNamespacedPodDisruptionBudget 
+instance HasBodyParam DeleteNamespacedPodDisruptionBudget V1DeleteOptions 
 
 -- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam DeleteNamespacedEvent Pretty where
+instance HasOptionalParam DeleteNamespacedPodDisruptionBudget Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
 -- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-instance HasOptionalParam DeleteNamespacedEvent DryRun where
+instance HasOptionalParam DeleteNamespacedPodDisruptionBudget DryRun where
   applyOptionalParam req (DryRun xs) =
     req `addQuery` toQuery ("dryRun", Just xs)
 
 -- | /Optional Param/ "gracePeriodSeconds" - The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
-instance HasOptionalParam DeleteNamespacedEvent GracePeriodSeconds where
+instance HasOptionalParam DeleteNamespacedPodDisruptionBudget GracePeriodSeconds where
   applyOptionalParam req (GracePeriodSeconds xs) =
     req `addQuery` toQuery ("gracePeriodSeconds", Just xs)
 
 -- | /Optional Param/ "orphanDependents" - Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.
-instance HasOptionalParam DeleteNamespacedEvent OrphanDependents where
+instance HasOptionalParam DeleteNamespacedPodDisruptionBudget OrphanDependents where
   applyOptionalParam req (OrphanDependents xs) =
     req `addQuery` toQuery ("orphanDependents", Just xs)
 
 -- | /Optional Param/ "propagationPolicy" - Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.
-instance HasOptionalParam DeleteNamespacedEvent PropagationPolicy where
+instance HasOptionalParam DeleteNamespacedPodDisruptionBudget PropagationPolicy where
   applyOptionalParam req (PropagationPolicy xs) =
     req `addQuery` toQuery ("propagationPolicy", Just xs)
 
 -- | @*/*@
-instance MimeType mtype => Consumes DeleteNamespacedEvent mtype
+instance MimeType mtype => Consumes DeleteNamespacedPodDisruptionBudget mtype
 
 -- | @application/json@
-instance Produces DeleteNamespacedEvent MimeJSON
+instance Produces DeleteNamespacedPodDisruptionBudget MimeJSON
 -- | @application/vnd.kubernetes.protobuf@
-instance Produces DeleteNamespacedEvent MimeVndKubernetesProtobuf
+instance Produces DeleteNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
 -- | @application/yaml@
-instance Produces DeleteNamespacedEvent MimeYaml
+instance Produces DeleteNamespacedPodDisruptionBudget MimeYaml
 
 
 -- *** getAPIResources
 
--- | @GET \/apis\/events.k8s.io\/v1beta1\/@
+-- | @GET \/apis\/policy\/v1\/@
 -- 
 -- get available resources
 -- 
@@ -268,7 +268,7 @@ getAPIResources
   :: Accept accept -- ^ request accept ('MimeType')
   -> KubernetesRequest GetAPIResources MimeNoContent V1APIResourceList accept
 getAPIResources  _ =
-  _mkRequest "GET" ["/apis/events.k8s.io/v1beta1/"]
+  _mkRequest "GET" ["/apis/policy/v1/"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
 
 data GetAPIResources  
@@ -280,301 +280,443 @@ instance Produces GetAPIResources MimeVndKubernetesProtobuf
 instance Produces GetAPIResources MimeYaml
 
 
--- *** listEventForAllNamespaces
+-- *** listNamespacedPodDisruptionBudget
 
--- | @GET \/apis\/events.k8s.io\/v1beta1\/events@
+-- | @GET \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets@
 -- 
--- list or watch objects of kind Event
--- 
--- AuthMethod: 'AuthApiKeyBearerToken'
--- 
-listEventForAllNamespaces
-  :: Accept accept -- ^ request accept ('MimeType')
-  -> KubernetesRequest ListEventForAllNamespaces MimeNoContent V1beta1EventList accept
-listEventForAllNamespaces  _ =
-  _mkRequest "GET" ["/apis/events.k8s.io/v1beta1/events"]
-    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
-
-data ListEventForAllNamespaces  
-
--- | /Optional Param/ "allowWatchBookmarks" - allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.
-instance HasOptionalParam ListEventForAllNamespaces AllowWatchBookmarks where
-  applyOptionalParam req (AllowWatchBookmarks xs) =
-    req `addQuery` toQuery ("allowWatchBookmarks", Just xs)
-
--- | /Optional Param/ "continue" - The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-instance HasOptionalParam ListEventForAllNamespaces Continue where
-  applyOptionalParam req (Continue xs) =
-    req `addQuery` toQuery ("continue", Just xs)
-
--- | /Optional Param/ "fieldSelector" - A selector to restrict the list of returned objects by their fields. Defaults to everything.
-instance HasOptionalParam ListEventForAllNamespaces FieldSelector where
-  applyOptionalParam req (FieldSelector xs) =
-    req `addQuery` toQuery ("fieldSelector", Just xs)
-
--- | /Optional Param/ "labelSelector" - A selector to restrict the list of returned objects by their labels. Defaults to everything.
-instance HasOptionalParam ListEventForAllNamespaces LabelSelector where
-  applyOptionalParam req (LabelSelector xs) =
-    req `addQuery` toQuery ("labelSelector", Just xs)
-
--- | /Optional Param/ "limit" - limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-instance HasOptionalParam ListEventForAllNamespaces Limit where
-  applyOptionalParam req (Limit xs) =
-    req `addQuery` toQuery ("limit", Just xs)
-
--- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam ListEventForAllNamespaces Pretty where
-  applyOptionalParam req (Pretty xs) =
-    req `addQuery` toQuery ("pretty", Just xs)
-
--- | /Optional Param/ "resourceVersion" - resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
-instance HasOptionalParam ListEventForAllNamespaces ResourceVersion where
-  applyOptionalParam req (ResourceVersion xs) =
-    req `addQuery` toQuery ("resourceVersion", Just xs)
-
--- | /Optional Param/ "resourceVersionMatch" - resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
-instance HasOptionalParam ListEventForAllNamespaces ResourceVersionMatch where
-  applyOptionalParam req (ResourceVersionMatch xs) =
-    req `addQuery` toQuery ("resourceVersionMatch", Just xs)
-
--- | /Optional Param/ "timeoutSeconds" - Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-instance HasOptionalParam ListEventForAllNamespaces TimeoutSeconds where
-  applyOptionalParam req (TimeoutSeconds xs) =
-    req `addQuery` toQuery ("timeoutSeconds", Just xs)
-
--- | /Optional Param/ "watch" - Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-instance HasOptionalParam ListEventForAllNamespaces Watch where
-  applyOptionalParam req (Watch xs) =
-    req `addQuery` toQuery ("watch", Just xs)
--- | @application/json@
-instance Produces ListEventForAllNamespaces MimeJSON
--- | @application/json;stream=watch@
-instance Produces ListEventForAllNamespaces MimeJsonstreamwatch
--- | @application/vnd.kubernetes.protobuf@
-instance Produces ListEventForAllNamespaces MimeVndKubernetesProtobuf
--- | @application/vnd.kubernetes.protobuf;stream=watch@
-instance Produces ListEventForAllNamespaces MimeVndKubernetesProtobufstreamwatch
--- | @application/yaml@
-instance Produces ListEventForAllNamespaces MimeYaml
-
-
--- *** listNamespacedEvent
-
--- | @GET \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events@
--- 
--- list or watch objects of kind Event
+-- list or watch objects of kind PodDisruptionBudget
 -- 
 -- AuthMethod: 'AuthApiKeyBearerToken'
 -- 
-listNamespacedEvent
+listNamespacedPodDisruptionBudget
   :: Accept accept -- ^ request accept ('MimeType')
   -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest ListNamespacedEvent MimeNoContent V1beta1EventList accept
-listNamespacedEvent  _ (Namespace namespace) =
-  _mkRequest "GET" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events"]
+  -> KubernetesRequest ListNamespacedPodDisruptionBudget MimeNoContent V1PodDisruptionBudgetList accept
+listNamespacedPodDisruptionBudget  _ (Namespace namespace) =
+  _mkRequest "GET" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
 
-data ListNamespacedEvent  
+data ListNamespacedPodDisruptionBudget  
 
 -- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam ListNamespacedEvent Pretty where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
 -- | /Optional Param/ "allowWatchBookmarks" - allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.
-instance HasOptionalParam ListNamespacedEvent AllowWatchBookmarks where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget AllowWatchBookmarks where
   applyOptionalParam req (AllowWatchBookmarks xs) =
     req `addQuery` toQuery ("allowWatchBookmarks", Just xs)
 
 -- | /Optional Param/ "continue" - The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
-instance HasOptionalParam ListNamespacedEvent Continue where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget Continue where
   applyOptionalParam req (Continue xs) =
     req `addQuery` toQuery ("continue", Just xs)
 
 -- | /Optional Param/ "fieldSelector" - A selector to restrict the list of returned objects by their fields. Defaults to everything.
-instance HasOptionalParam ListNamespacedEvent FieldSelector where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget FieldSelector where
   applyOptionalParam req (FieldSelector xs) =
     req `addQuery` toQuery ("fieldSelector", Just xs)
 
 -- | /Optional Param/ "labelSelector" - A selector to restrict the list of returned objects by their labels. Defaults to everything.
-instance HasOptionalParam ListNamespacedEvent LabelSelector where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget LabelSelector where
   applyOptionalParam req (LabelSelector xs) =
     req `addQuery` toQuery ("labelSelector", Just xs)
 
 -- | /Optional Param/ "limit" - limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
-instance HasOptionalParam ListNamespacedEvent Limit where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget Limit where
   applyOptionalParam req (Limit xs) =
     req `addQuery` toQuery ("limit", Just xs)
 
 -- | /Optional Param/ "resourceVersion" - resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
-instance HasOptionalParam ListNamespacedEvent ResourceVersion where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget ResourceVersion where
   applyOptionalParam req (ResourceVersion xs) =
     req `addQuery` toQuery ("resourceVersion", Just xs)
 
 -- | /Optional Param/ "resourceVersionMatch" - resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
-instance HasOptionalParam ListNamespacedEvent ResourceVersionMatch where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget ResourceVersionMatch where
   applyOptionalParam req (ResourceVersionMatch xs) =
     req `addQuery` toQuery ("resourceVersionMatch", Just xs)
 
 -- | /Optional Param/ "timeoutSeconds" - Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
-instance HasOptionalParam ListNamespacedEvent TimeoutSeconds where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget TimeoutSeconds where
   applyOptionalParam req (TimeoutSeconds xs) =
     req `addQuery` toQuery ("timeoutSeconds", Just xs)
 
 -- | /Optional Param/ "watch" - Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
-instance HasOptionalParam ListNamespacedEvent Watch where
+instance HasOptionalParam ListNamespacedPodDisruptionBudget Watch where
   applyOptionalParam req (Watch xs) =
     req `addQuery` toQuery ("watch", Just xs)
 -- | @application/json@
-instance Produces ListNamespacedEvent MimeJSON
+instance Produces ListNamespacedPodDisruptionBudget MimeJSON
 -- | @application/json;stream=watch@
-instance Produces ListNamespacedEvent MimeJsonstreamwatch
+instance Produces ListNamespacedPodDisruptionBudget MimeJsonstreamwatch
 -- | @application/vnd.kubernetes.protobuf@
-instance Produces ListNamespacedEvent MimeVndKubernetesProtobuf
+instance Produces ListNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
 -- | @application/vnd.kubernetes.protobuf;stream=watch@
-instance Produces ListNamespacedEvent MimeVndKubernetesProtobufstreamwatch
+instance Produces ListNamespacedPodDisruptionBudget MimeVndKubernetesProtobufstreamwatch
 -- | @application/yaml@
-instance Produces ListNamespacedEvent MimeYaml
+instance Produces ListNamespacedPodDisruptionBudget MimeYaml
 
 
--- *** patchNamespacedEvent
+-- *** listPodDisruptionBudgetForAllNamespaces
 
--- | @PATCH \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events\/{name}@
+-- | @GET \/apis\/policy\/v1\/poddisruptionbudgets@
 -- 
--- partially update the specified Event
+-- list or watch objects of kind PodDisruptionBudget
 -- 
 -- AuthMethod: 'AuthApiKeyBearerToken'
 -- 
-patchNamespacedEvent
-  :: (Consumes PatchNamespacedEvent contentType, MimeRender contentType Body)
+listPodDisruptionBudgetForAllNamespaces
+  :: Accept accept -- ^ request accept ('MimeType')
+  -> KubernetesRequest ListPodDisruptionBudgetForAllNamespaces MimeNoContent V1PodDisruptionBudgetList accept
+listPodDisruptionBudgetForAllNamespaces  _ =
+  _mkRequest "GET" ["/apis/policy/v1/poddisruptionbudgets"]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
+
+data ListPodDisruptionBudgetForAllNamespaces  
+
+-- | /Optional Param/ "allowWatchBookmarks" - allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces AllowWatchBookmarks where
+  applyOptionalParam req (AllowWatchBookmarks xs) =
+    req `addQuery` toQuery ("allowWatchBookmarks", Just xs)
+
+-- | /Optional Param/ "continue" - The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".  This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces Continue where
+  applyOptionalParam req (Continue xs) =
+    req `addQuery` toQuery ("continue", Just xs)
+
+-- | /Optional Param/ "fieldSelector" - A selector to restrict the list of returned objects by their fields. Defaults to everything.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces FieldSelector where
+  applyOptionalParam req (FieldSelector xs) =
+    req `addQuery` toQuery ("fieldSelector", Just xs)
+
+-- | /Optional Param/ "labelSelector" - A selector to restrict the list of returned objects by their labels. Defaults to everything.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces LabelSelector where
+  applyOptionalParam req (LabelSelector xs) =
+    req `addQuery` toQuery ("labelSelector", Just xs)
+
+-- | /Optional Param/ "limit" - limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.  The server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces Limit where
+  applyOptionalParam req (Limit xs) =
+    req `addQuery` toQuery ("limit", Just xs)
+
+-- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces Pretty where
+  applyOptionalParam req (Pretty xs) =
+    req `addQuery` toQuery ("pretty", Just xs)
+
+-- | /Optional Param/ "resourceVersion" - resourceVersion sets a constraint on what resource versions a request may be served from. See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces ResourceVersion where
+  applyOptionalParam req (ResourceVersion xs) =
+    req `addQuery` toQuery ("resourceVersion", Just xs)
+
+-- | /Optional Param/ "resourceVersionMatch" - resourceVersionMatch determines how resourceVersion is applied to list calls. It is highly recommended that resourceVersionMatch be set for list calls where resourceVersion is set See https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions for details.  Defaults to unset
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces ResourceVersionMatch where
+  applyOptionalParam req (ResourceVersionMatch xs) =
+    req `addQuery` toQuery ("resourceVersionMatch", Just xs)
+
+-- | /Optional Param/ "timeoutSeconds" - Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces TimeoutSeconds where
+  applyOptionalParam req (TimeoutSeconds xs) =
+    req `addQuery` toQuery ("timeoutSeconds", Just xs)
+
+-- | /Optional Param/ "watch" - Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.
+instance HasOptionalParam ListPodDisruptionBudgetForAllNamespaces Watch where
+  applyOptionalParam req (Watch xs) =
+    req `addQuery` toQuery ("watch", Just xs)
+-- | @application/json@
+instance Produces ListPodDisruptionBudgetForAllNamespaces MimeJSON
+-- | @application/json;stream=watch@
+instance Produces ListPodDisruptionBudgetForAllNamespaces MimeJsonstreamwatch
+-- | @application/vnd.kubernetes.protobuf@
+instance Produces ListPodDisruptionBudgetForAllNamespaces MimeVndKubernetesProtobuf
+-- | @application/vnd.kubernetes.protobuf;stream=watch@
+instance Produces ListPodDisruptionBudgetForAllNamespaces MimeVndKubernetesProtobufstreamwatch
+-- | @application/yaml@
+instance Produces ListPodDisruptionBudgetForAllNamespaces MimeYaml
+
+
+-- *** patchNamespacedPodDisruptionBudget
+
+-- | @PATCH \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}@
+-- 
+-- partially update the specified PodDisruptionBudget
+-- 
+-- AuthMethod: 'AuthApiKeyBearerToken'
+-- 
+patchNamespacedPodDisruptionBudget
+  :: (Consumes PatchNamespacedPodDisruptionBudget contentType, MimeRender contentType Body)
   => ContentType contentType -- ^ request content-type ('MimeType')
   -> Accept accept -- ^ request accept ('MimeType')
   -> Body -- ^ "body"
-  -> Name -- ^ "name" -  name of the Event
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
   -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest PatchNamespacedEvent contentType V1beta1Event accept
-patchNamespacedEvent _  _ body (Name name) (Namespace namespace) =
-  _mkRequest "PATCH" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events/",toPath name]
+  -> KubernetesRequest PatchNamespacedPodDisruptionBudget contentType V1PodDisruptionBudget accept
+patchNamespacedPodDisruptionBudget _  _ body (Name name) (Namespace namespace) =
+  _mkRequest "PATCH" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
     `setBodyParam` body
 
-data PatchNamespacedEvent 
-instance HasBodyParam PatchNamespacedEvent Body 
+data PatchNamespacedPodDisruptionBudget 
+instance HasBodyParam PatchNamespacedPodDisruptionBudget Body 
 
 -- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam PatchNamespacedEvent Pretty where
+instance HasOptionalParam PatchNamespacedPodDisruptionBudget Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
 -- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-instance HasOptionalParam PatchNamespacedEvent DryRun where
+instance HasOptionalParam PatchNamespacedPodDisruptionBudget DryRun where
   applyOptionalParam req (DryRun xs) =
     req `addQuery` toQuery ("dryRun", Just xs)
 
 -- | /Optional Param/ "fieldManager" - fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).
-instance HasOptionalParam PatchNamespacedEvent FieldManager where
+instance HasOptionalParam PatchNamespacedPodDisruptionBudget FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
 -- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
-instance HasOptionalParam PatchNamespacedEvent Force where
+instance HasOptionalParam PatchNamespacedPodDisruptionBudget Force where
   applyOptionalParam req (Force xs) =
     req `addQuery` toQuery ("force", Just xs)
 
 -- | @application/apply-patch+yaml@
-instance Consumes PatchNamespacedEvent MimeApplyPatchyaml
+instance Consumes PatchNamespacedPodDisruptionBudget MimeApplyPatchyaml
 -- | @application/json-patch+json@
-instance Consumes PatchNamespacedEvent MimeJsonPatchjson
+instance Consumes PatchNamespacedPodDisruptionBudget MimeJsonPatchjson
 -- | @application/merge-patch+json@
-instance Consumes PatchNamespacedEvent MimeMergePatchjson
+instance Consumes PatchNamespacedPodDisruptionBudget MimeMergePatchjson
 -- | @application/strategic-merge-patch+json@
-instance Consumes PatchNamespacedEvent MimeStrategicMergePatchjson
+instance Consumes PatchNamespacedPodDisruptionBudget MimeStrategicMergePatchjson
 
 -- | @application/json@
-instance Produces PatchNamespacedEvent MimeJSON
+instance Produces PatchNamespacedPodDisruptionBudget MimeJSON
 -- | @application/vnd.kubernetes.protobuf@
-instance Produces PatchNamespacedEvent MimeVndKubernetesProtobuf
+instance Produces PatchNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
 -- | @application/yaml@
-instance Produces PatchNamespacedEvent MimeYaml
+instance Produces PatchNamespacedPodDisruptionBudget MimeYaml
 
 
--- *** readNamespacedEvent
+-- *** patchNamespacedPodDisruptionBudgetStatus
 
--- | @GET \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events\/{name}@
+-- | @PATCH \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}\/status@
 -- 
--- read the specified Event
+-- partially update status of the specified PodDisruptionBudget
 -- 
 -- AuthMethod: 'AuthApiKeyBearerToken'
 -- 
-readNamespacedEvent
-  :: Accept accept -- ^ request accept ('MimeType')
-  -> Name -- ^ "name" -  name of the Event
-  -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest ReadNamespacedEvent MimeNoContent V1beta1Event accept
-readNamespacedEvent  _ (Name name) (Namespace namespace) =
-  _mkRequest "GET" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events/",toPath name]
-    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
-
-data ReadNamespacedEvent  
-
--- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam ReadNamespacedEvent Pretty where
-  applyOptionalParam req (Pretty xs) =
-    req `addQuery` toQuery ("pretty", Just xs)
--- | @application/json@
-instance Produces ReadNamespacedEvent MimeJSON
--- | @application/vnd.kubernetes.protobuf@
-instance Produces ReadNamespacedEvent MimeVndKubernetesProtobuf
--- | @application/yaml@
-instance Produces ReadNamespacedEvent MimeYaml
-
-
--- *** replaceNamespacedEvent
-
--- | @PUT \/apis\/events.k8s.io\/v1beta1\/namespaces\/{namespace}\/events\/{name}@
--- 
--- replace the specified Event
--- 
--- AuthMethod: 'AuthApiKeyBearerToken'
--- 
-replaceNamespacedEvent
-  :: (Consumes ReplaceNamespacedEvent contentType, MimeRender contentType V1beta1Event)
+patchNamespacedPodDisruptionBudgetStatus
+  :: (Consumes PatchNamespacedPodDisruptionBudgetStatus contentType, MimeRender contentType Body)
   => ContentType contentType -- ^ request content-type ('MimeType')
   -> Accept accept -- ^ request accept ('MimeType')
-  -> V1beta1Event -- ^ "body"
-  -> Name -- ^ "name" -  name of the Event
+  -> Body -- ^ "body"
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
   -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
-  -> KubernetesRequest ReplaceNamespacedEvent contentType V1beta1Event accept
-replaceNamespacedEvent _  _ body (Name name) (Namespace namespace) =
-  _mkRequest "PUT" ["/apis/events.k8s.io/v1beta1/namespaces/",toPath namespace,"/events/",toPath name]
+  -> KubernetesRequest PatchNamespacedPodDisruptionBudgetStatus contentType V1PodDisruptionBudget accept
+patchNamespacedPodDisruptionBudgetStatus _  _ body (Name name) (Namespace namespace) =
+  _mkRequest "PATCH" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name,"/status"]
     `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
     `setBodyParam` body
 
-data ReplaceNamespacedEvent 
-instance HasBodyParam ReplaceNamespacedEvent V1beta1Event 
+data PatchNamespacedPodDisruptionBudgetStatus 
+instance HasBodyParam PatchNamespacedPodDisruptionBudgetStatus Body 
 
 -- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
-instance HasOptionalParam ReplaceNamespacedEvent Pretty where
+instance HasOptionalParam PatchNamespacedPodDisruptionBudgetStatus Pretty where
   applyOptionalParam req (Pretty xs) =
     req `addQuery` toQuery ("pretty", Just xs)
 
 -- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
-instance HasOptionalParam ReplaceNamespacedEvent DryRun where
+instance HasOptionalParam PatchNamespacedPodDisruptionBudgetStatus DryRun where
+  applyOptionalParam req (DryRun xs) =
+    req `addQuery` toQuery ("dryRun", Just xs)
+
+-- | /Optional Param/ "fieldManager" - fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).
+instance HasOptionalParam PatchNamespacedPodDisruptionBudgetStatus FieldManager where
+  applyOptionalParam req (FieldManager xs) =
+    req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | /Optional Param/ "force" - Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.
+instance HasOptionalParam PatchNamespacedPodDisruptionBudgetStatus Force where
+  applyOptionalParam req (Force xs) =
+    req `addQuery` toQuery ("force", Just xs)
+
+-- | @application/apply-patch+yaml@
+instance Consumes PatchNamespacedPodDisruptionBudgetStatus MimeApplyPatchyaml
+-- | @application/json-patch+json@
+instance Consumes PatchNamespacedPodDisruptionBudgetStatus MimeJsonPatchjson
+-- | @application/merge-patch+json@
+instance Consumes PatchNamespacedPodDisruptionBudgetStatus MimeMergePatchjson
+-- | @application/strategic-merge-patch+json@
+instance Consumes PatchNamespacedPodDisruptionBudgetStatus MimeStrategicMergePatchjson
+
+-- | @application/json@
+instance Produces PatchNamespacedPodDisruptionBudgetStatus MimeJSON
+-- | @application/vnd.kubernetes.protobuf@
+instance Produces PatchNamespacedPodDisruptionBudgetStatus MimeVndKubernetesProtobuf
+-- | @application/yaml@
+instance Produces PatchNamespacedPodDisruptionBudgetStatus MimeYaml
+
+
+-- *** readNamespacedPodDisruptionBudget
+
+-- | @GET \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}@
+-- 
+-- read the specified PodDisruptionBudget
+-- 
+-- AuthMethod: 'AuthApiKeyBearerToken'
+-- 
+readNamespacedPodDisruptionBudget
+  :: Accept accept -- ^ request accept ('MimeType')
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
+  -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
+  -> KubernetesRequest ReadNamespacedPodDisruptionBudget MimeNoContent V1PodDisruptionBudget accept
+readNamespacedPodDisruptionBudget  _ (Name name) (Namespace namespace) =
+  _mkRequest "GET" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
+
+data ReadNamespacedPodDisruptionBudget  
+
+-- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
+instance HasOptionalParam ReadNamespacedPodDisruptionBudget Pretty where
+  applyOptionalParam req (Pretty xs) =
+    req `addQuery` toQuery ("pretty", Just xs)
+-- | @application/json@
+instance Produces ReadNamespacedPodDisruptionBudget MimeJSON
+-- | @application/vnd.kubernetes.protobuf@
+instance Produces ReadNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
+-- | @application/yaml@
+instance Produces ReadNamespacedPodDisruptionBudget MimeYaml
+
+
+-- *** readNamespacedPodDisruptionBudgetStatus
+
+-- | @GET \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}\/status@
+-- 
+-- read status of the specified PodDisruptionBudget
+-- 
+-- AuthMethod: 'AuthApiKeyBearerToken'
+-- 
+readNamespacedPodDisruptionBudgetStatus
+  :: Accept accept -- ^ request accept ('MimeType')
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
+  -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
+  -> KubernetesRequest ReadNamespacedPodDisruptionBudgetStatus MimeNoContent V1PodDisruptionBudget accept
+readNamespacedPodDisruptionBudgetStatus  _ (Name name) (Namespace namespace) =
+  _mkRequest "GET" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name,"/status"]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
+
+data ReadNamespacedPodDisruptionBudgetStatus  
+
+-- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
+instance HasOptionalParam ReadNamespacedPodDisruptionBudgetStatus Pretty where
+  applyOptionalParam req (Pretty xs) =
+    req `addQuery` toQuery ("pretty", Just xs)
+-- | @application/json@
+instance Produces ReadNamespacedPodDisruptionBudgetStatus MimeJSON
+-- | @application/vnd.kubernetes.protobuf@
+instance Produces ReadNamespacedPodDisruptionBudgetStatus MimeVndKubernetesProtobuf
+-- | @application/yaml@
+instance Produces ReadNamespacedPodDisruptionBudgetStatus MimeYaml
+
+
+-- *** replaceNamespacedPodDisruptionBudget
+
+-- | @PUT \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}@
+-- 
+-- replace the specified PodDisruptionBudget
+-- 
+-- AuthMethod: 'AuthApiKeyBearerToken'
+-- 
+replaceNamespacedPodDisruptionBudget
+  :: (Consumes ReplaceNamespacedPodDisruptionBudget contentType, MimeRender contentType V1PodDisruptionBudget)
+  => ContentType contentType -- ^ request content-type ('MimeType')
+  -> Accept accept -- ^ request accept ('MimeType')
+  -> V1PodDisruptionBudget -- ^ "body"
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
+  -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
+  -> KubernetesRequest ReplaceNamespacedPodDisruptionBudget contentType V1PodDisruptionBudget accept
+replaceNamespacedPodDisruptionBudget _  _ body (Name name) (Namespace namespace) =
+  _mkRequest "PUT" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
+    `setBodyParam` body
+
+data ReplaceNamespacedPodDisruptionBudget 
+instance HasBodyParam ReplaceNamespacedPodDisruptionBudget V1PodDisruptionBudget 
+
+-- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
+instance HasOptionalParam ReplaceNamespacedPodDisruptionBudget Pretty where
+  applyOptionalParam req (Pretty xs) =
+    req `addQuery` toQuery ("pretty", Just xs)
+
+-- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+instance HasOptionalParam ReplaceNamespacedPodDisruptionBudget DryRun where
   applyOptionalParam req (DryRun xs) =
     req `addQuery` toQuery ("dryRun", Just xs)
 
 -- | /Optional Param/ "fieldManager" - fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
-instance HasOptionalParam ReplaceNamespacedEvent FieldManager where
+instance HasOptionalParam ReplaceNamespacedPodDisruptionBudget FieldManager where
   applyOptionalParam req (FieldManager xs) =
     req `addQuery` toQuery ("fieldManager", Just xs)
 
 -- | @*/*@
-instance MimeType mtype => Consumes ReplaceNamespacedEvent mtype
+instance MimeType mtype => Consumes ReplaceNamespacedPodDisruptionBudget mtype
 
 -- | @application/json@
-instance Produces ReplaceNamespacedEvent MimeJSON
+instance Produces ReplaceNamespacedPodDisruptionBudget MimeJSON
 -- | @application/vnd.kubernetes.protobuf@
-instance Produces ReplaceNamespacedEvent MimeVndKubernetesProtobuf
+instance Produces ReplaceNamespacedPodDisruptionBudget MimeVndKubernetesProtobuf
 -- | @application/yaml@
-instance Produces ReplaceNamespacedEvent MimeYaml
+instance Produces ReplaceNamespacedPodDisruptionBudget MimeYaml
+
+
+-- *** replaceNamespacedPodDisruptionBudgetStatus
+
+-- | @PUT \/apis\/policy\/v1\/namespaces\/{namespace}\/poddisruptionbudgets\/{name}\/status@
+-- 
+-- replace status of the specified PodDisruptionBudget
+-- 
+-- AuthMethod: 'AuthApiKeyBearerToken'
+-- 
+replaceNamespacedPodDisruptionBudgetStatus
+  :: (Consumes ReplaceNamespacedPodDisruptionBudgetStatus contentType, MimeRender contentType V1PodDisruptionBudget)
+  => ContentType contentType -- ^ request content-type ('MimeType')
+  -> Accept accept -- ^ request accept ('MimeType')
+  -> V1PodDisruptionBudget -- ^ "body"
+  -> Name -- ^ "name" -  name of the PodDisruptionBudget
+  -> Namespace -- ^ "namespace" -  object name and auth scope, such as for teams and projects
+  -> KubernetesRequest ReplaceNamespacedPodDisruptionBudgetStatus contentType V1PodDisruptionBudget accept
+replaceNamespacedPodDisruptionBudgetStatus _  _ body (Name name) (Namespace namespace) =
+  _mkRequest "PUT" ["/apis/policy/v1/namespaces/",toPath namespace,"/poddisruptionbudgets/",toPath name,"/status"]
+    `_hasAuthType` (P.Proxy :: P.Proxy AuthApiKeyBearerToken)
+    `setBodyParam` body
+
+data ReplaceNamespacedPodDisruptionBudgetStatus 
+instance HasBodyParam ReplaceNamespacedPodDisruptionBudgetStatus V1PodDisruptionBudget 
+
+-- | /Optional Param/ "pretty" - If 'true', then the output is pretty printed.
+instance HasOptionalParam ReplaceNamespacedPodDisruptionBudgetStatus Pretty where
+  applyOptionalParam req (Pretty xs) =
+    req `addQuery` toQuery ("pretty", Just xs)
+
+-- | /Optional Param/ "dryRun" - When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed
+instance HasOptionalParam ReplaceNamespacedPodDisruptionBudgetStatus DryRun where
+  applyOptionalParam req (DryRun xs) =
+    req `addQuery` toQuery ("dryRun", Just xs)
+
+-- | /Optional Param/ "fieldManager" - fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.
+instance HasOptionalParam ReplaceNamespacedPodDisruptionBudgetStatus FieldManager where
+  applyOptionalParam req (FieldManager xs) =
+    req `addQuery` toQuery ("fieldManager", Just xs)
+
+-- | @*/*@
+instance MimeType mtype => Consumes ReplaceNamespacedPodDisruptionBudgetStatus mtype
+
+-- | @application/json@
+instance Produces ReplaceNamespacedPodDisruptionBudgetStatus MimeJSON
+-- | @application/vnd.kubernetes.protobuf@
+instance Produces ReplaceNamespacedPodDisruptionBudgetStatus MimeVndKubernetesProtobuf
+-- | @application/yaml@
+instance Produces ReplaceNamespacedPodDisruptionBudgetStatus MimeYaml
 

@@ -29,7 +29,6 @@ lib/Kubernetes/OpenAPI/API/AutoscalingV2beta2.hs
 lib/Kubernetes/OpenAPI/API/Batch.hs
 lib/Kubernetes/OpenAPI/API/BatchV1.hs
 lib/Kubernetes/OpenAPI/API/BatchV1beta1.hs
-lib/Kubernetes/OpenAPI/API/BatchV2alpha1.hs
 lib/Kubernetes/OpenAPI/API/Certificates.hs
 lib/Kubernetes/OpenAPI/API/CertificatesV1.hs
 lib/Kubernetes/OpenAPI/API/CertificatesV1beta1.hs
@@ -40,6 +39,7 @@ lib/Kubernetes/OpenAPI/API/Core.hs
 lib/Kubernetes/OpenAPI/API/CoreV1.hs
 lib/Kubernetes/OpenAPI/API/CustomObjects.hs
 lib/Kubernetes/OpenAPI/API/Discovery.hs
+lib/Kubernetes/OpenAPI/API/DiscoveryV1.hs
 lib/Kubernetes/OpenAPI/API/DiscoveryV1beta1.hs
 lib/Kubernetes/OpenAPI/API/Events.hs
 lib/Kubernetes/OpenAPI/API/EventsV1.hs
@@ -47,7 +47,6 @@ lib/Kubernetes/OpenAPI/API/EventsV1beta1.hs
 lib/Kubernetes/OpenAPI/API/Extensions.hs
 lib/Kubernetes/OpenAPI/API/ExtensionsV1beta1.hs
 lib/Kubernetes/OpenAPI/API/FlowcontrolApiserver.hs
-lib/Kubernetes/OpenAPI/API/FlowcontrolApiserverV1alpha1.hs
 lib/Kubernetes/OpenAPI/API/FlowcontrolApiserverV1beta1.hs
 lib/Kubernetes/OpenAPI/API/InternalApiserver.hs
 lib/Kubernetes/OpenAPI/API/InternalApiserverV1alpha1.hs
@@ -61,6 +60,7 @@ lib/Kubernetes/OpenAPI/API/NodeV1alpha1.hs
 lib/Kubernetes/OpenAPI/API/NodeV1beta1.hs
 lib/Kubernetes/OpenAPI/API/Openid.hs
 lib/Kubernetes/OpenAPI/API/Policy.hs
+lib/Kubernetes/OpenAPI/API/PolicyV1.hs
 lib/Kubernetes/OpenAPI/API/PolicyV1beta1.hs
 lib/Kubernetes/OpenAPI/API/RbacAuthorization.hs
 lib/Kubernetes/OpenAPI/API/RbacAuthorizationV1.hs

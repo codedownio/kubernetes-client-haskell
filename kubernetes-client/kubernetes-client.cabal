@@ -5,7 +5,7 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           kubernetes-client
-version:        1.20.0
+version:        1.21.0
 synopsis:       Client library for Kubernetes
 description:    Client library for interacting with a Kubernetes cluster.
                 .
@@ -61,7 +61,7 @@ library
     , http-client-tls >=0.3
     , jose-jwt >=0.8
     , jsonpath >=0.1 && <0.4
-    , kubernetes-client-core ==1.20.0
+    , kubernetes-client-core ==1.21.0
     , megaparsec ==9.*
     , microlens >=0.4
     , mtl >=2.2
@@ -118,7 +118,7 @@ test-suite example
     , jose-jwt >=0.8
     , jsonpath >=0.1 && <0.4
     , kubernetes-client
-    , kubernetes-client-core ==1.20.0
+    , kubernetes-client-core ==1.21.0
     , megaparsec ==9.*
     , microlens >=0.4
     , mtl >=2.2
@@ -184,7 +184,7 @@ test-suite spec
     , jose-jwt >=0.8
     , jsonpath >=0.1 && <0.4
     , kubernetes-client
-    , kubernetes-client-core ==1.20.0
+    , kubernetes-client-core ==1.21.0
     , megaparsec ==9.*
     , microlens >=0.4
     , mtl >=2.2

@@ -1,5 +1,5 @@
 name:           kubernetes-client-core
-version:        1.20.0
+version:        1.21.0
 synopsis:       Auto-generated kubernetes-client-core API Client
 description:    .
                 Client library for calling the Kubernetes API based on http-client.
@@ -8,7 +8,7 @@ description:    .
                 .
                 base path: http://localhost
                 .
-                Kubernetes API version: release-1.20
+                Kubernetes API version: release-1.21
                 .
                 OpenAPI version: 3.0.1
                 .
@@ -91,7 +91,6 @@ library
       Kubernetes.OpenAPI.API.Batch
       Kubernetes.OpenAPI.API.BatchV1
       Kubernetes.OpenAPI.API.BatchV1beta1
-      Kubernetes.OpenAPI.API.BatchV2alpha1
       Kubernetes.OpenAPI.API.Certificates
       Kubernetes.OpenAPI.API.CertificatesV1
       Kubernetes.OpenAPI.API.CertificatesV1beta1
@@ -102,6 +101,7 @@ library
       Kubernetes.OpenAPI.API.CoreV1
       Kubernetes.OpenAPI.API.CustomObjects
       Kubernetes.OpenAPI.API.Discovery
+      Kubernetes.OpenAPI.API.DiscoveryV1
       Kubernetes.OpenAPI.API.DiscoveryV1beta1
       Kubernetes.OpenAPI.API.Events
       Kubernetes.OpenAPI.API.EventsV1
@@ -109,7 +109,6 @@ library
       Kubernetes.OpenAPI.API.Extensions
       Kubernetes.OpenAPI.API.ExtensionsV1beta1
       Kubernetes.OpenAPI.API.FlowcontrolApiserver
-      Kubernetes.OpenAPI.API.FlowcontrolApiserverV1alpha1
       Kubernetes.OpenAPI.API.FlowcontrolApiserverV1beta1
       Kubernetes.OpenAPI.API.InternalApiserver
       Kubernetes.OpenAPI.API.InternalApiserverV1alpha1
@@ -123,6 +122,7 @@ library
       Kubernetes.OpenAPI.API.NodeV1beta1
       Kubernetes.OpenAPI.API.Openid
       Kubernetes.OpenAPI.API.Policy
+      Kubernetes.OpenAPI.API.PolicyV1
       Kubernetes.OpenAPI.API.PolicyV1beta1
       Kubernetes.OpenAPI.API.RbacAuthorization
       Kubernetes.OpenAPI.API.RbacAuthorizationV1

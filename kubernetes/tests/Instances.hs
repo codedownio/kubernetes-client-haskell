@@ -230,6 +230,17 @@ genAuthenticationV1TokenRequest n =
     <*> arbitraryReduced n -- authenticationV1TokenRequestSpec :: V1TokenRequestSpec
     <*> arbitraryReducedMaybe n -- authenticationV1TokenRequestStatus :: Maybe V1TokenRequestStatus
   
+instance Arbitrary CoreV1EndpointPort where
+  arbitrary = sized genCoreV1EndpointPort
+
+genCoreV1EndpointPort :: Int -> Gen CoreV1EndpointPort
+genCoreV1EndpointPort n =
+  CoreV1EndpointPort
+    <$> arbitraryReducedMaybe n -- coreV1EndpointPortAppProtocol :: Maybe Text
+    <*> arbitraryReducedMaybe n -- coreV1EndpointPortName :: Maybe Text
+    <*> arbitrary -- coreV1EndpointPortPort :: Int
+    <*> arbitraryReducedMaybe n -- coreV1EndpointPortProtocol :: Maybe Text
+  
 instance Arbitrary CoreV1Event where
   arbitrary = sized genCoreV1Event
 
@@ -274,6 +285,17 @@ genCoreV1EventSeries n =
     <$> arbitraryReducedMaybe n -- coreV1EventSeriesCount :: Maybe Int
     <*> arbitraryReducedMaybe n -- coreV1EventSeriesLastObservedTime :: Maybe DateTime
   
+instance Arbitrary DiscoveryV1EndpointPort where
+  arbitrary = sized genDiscoveryV1EndpointPort
+
+genDiscoveryV1EndpointPort :: Int -> Gen DiscoveryV1EndpointPort
+genDiscoveryV1EndpointPort n =
+  DiscoveryV1EndpointPort
+    <$> arbitraryReducedMaybe n -- discoveryV1EndpointPortAppProtocol :: Maybe Text
+    <*> arbitraryReducedMaybe n -- discoveryV1EndpointPortName :: Maybe Text
+    <*> arbitraryReducedMaybe n -- discoveryV1EndpointPortPort :: Maybe Int
+    <*> arbitraryReducedMaybe n -- discoveryV1EndpointPortProtocol :: Maybe Text
+  
 instance Arbitrary EventsV1Event where
   arbitrary = sized genEventsV1Event
 
@@ -288,7 +310,7 @@ genEventsV1Event n =
     <*> arbitraryReducedMaybe n -- eventsV1EventDeprecatedSource :: Maybe V1EventSource
     <*> arbitraryReduced n -- eventsV1EventEventTime :: DateTime
     <*> arbitraryReducedMaybe n -- eventsV1EventKind :: Maybe Text
-    <*> arbitraryReduced n -- eventsV1EventMetadata :: V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- eventsV1EventMetadata :: Maybe V1ObjectMeta
     <*> arbitraryReducedMaybe n -- eventsV1EventNote :: Maybe Text
     <*> arbitraryReducedMaybe n -- eventsV1EventReason :: Maybe Text
     <*> arbitraryReducedMaybe n -- eventsV1EventRegarding :: Maybe V1ObjectReference
@@ -406,17 +428,6 @@ genExtensionsV1beta1IngressTLS n =
     <$> arbitraryReducedMaybe n -- extensionsV1beta1IngressTLSHosts :: Maybe [Text]
     <*> arbitraryReducedMaybe n -- extensionsV1beta1IngressTLSSecretName :: Maybe Text
   
-instance Arbitrary FlowcontrolV1alpha1Subject where
-  arbitrary = sized genFlowcontrolV1alpha1Subject
-
-genFlowcontrolV1alpha1Subject :: Int -> Gen FlowcontrolV1alpha1Subject
-genFlowcontrolV1alpha1Subject n =
-  FlowcontrolV1alpha1Subject
-    <$> arbitraryReducedMaybe n -- flowcontrolV1alpha1SubjectGroup :: Maybe V1alpha1GroupSubject
-    <*> arbitrary -- flowcontrolV1alpha1SubjectKind :: Text
-    <*> arbitraryReducedMaybe n -- flowcontrolV1alpha1SubjectServiceAccount :: Maybe V1alpha1ServiceAccountSubject
-    <*> arbitraryReducedMaybe n -- flowcontrolV1alpha1SubjectUser :: Maybe V1alpha1UserSubject
-  
 instance Arbitrary FlowcontrolV1beta1Subject where
   arbitrary = sized genFlowcontrolV1beta1Subject
 
@@ -515,17 +526,6 @@ genNetworkingV1beta1IngressTLS n =
   NetworkingV1beta1IngressTLS
     <$> arbitraryReducedMaybe n -- networkingV1beta1IngressTLSHosts :: Maybe [Text]
     <*> arbitraryReducedMaybe n -- networkingV1beta1IngressTLSSecretName :: Maybe Text
-  
-instance Arbitrary RbacV1alpha1Subject where
-  arbitrary = sized genRbacV1alpha1Subject
-
-genRbacV1alpha1Subject :: Int -> Gen RbacV1alpha1Subject
-genRbacV1alpha1Subject n =
-  RbacV1alpha1Subject
-    <$> arbitraryReducedMaybe n -- rbacV1alpha1SubjectApiVersion :: Maybe Text
-    <*> arbitrary -- rbacV1alpha1SubjectKind :: Text
-    <*> arbitrary -- rbacV1alpha1SubjectName :: Text
-    <*> arbitraryReducedMaybe n -- rbacV1alpha1SubjectNamespace :: Maybe Text
   
 instance Arbitrary RbacV1beta1Subject where
   arbitrary = sized genRbacV1beta1Subject
@@ -1287,6 +1287,53 @@ genV1ControllerRevisionList n =
     <*> arbitraryReducedMaybe n -- v1ControllerRevisionListKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1ControllerRevisionListMetadata :: Maybe V1ListMeta
   
+instance Arbitrary V1CronJob where
+  arbitrary = sized genV1CronJob
+
+genV1CronJob :: Int -> Gen V1CronJob
+genV1CronJob n =
+  V1CronJob
+    <$> arbitraryReducedMaybe n -- v1CronJobApiVersion :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1CronJobKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1CronJobMetadata :: Maybe V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1CronJobSpec :: Maybe V1CronJobSpec
+    <*> arbitraryReducedMaybe n -- v1CronJobStatus :: Maybe V1CronJobStatus
+  
+instance Arbitrary V1CronJobList where
+  arbitrary = sized genV1CronJobList
+
+genV1CronJobList :: Int -> Gen V1CronJobList
+genV1CronJobList n =
+  V1CronJobList
+    <$> arbitraryReducedMaybe n -- v1CronJobListApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1CronJobListItems :: [V1CronJob]
+    <*> arbitraryReducedMaybe n -- v1CronJobListKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1CronJobListMetadata :: Maybe V1ListMeta
+  
+instance Arbitrary V1CronJobSpec where
+  arbitrary = sized genV1CronJobSpec
+
+genV1CronJobSpec :: Int -> Gen V1CronJobSpec
+genV1CronJobSpec n =
+  V1CronJobSpec
+    <$> arbitraryReducedMaybe n -- v1CronJobSpecConcurrencyPolicy :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1CronJobSpecFailedJobsHistoryLimit :: Maybe Int
+    <*> arbitraryReduced n -- v1CronJobSpecJobTemplate :: V1JobTemplateSpec
+    <*> arbitrary -- v1CronJobSpecSchedule :: Text
+    <*> arbitraryReducedMaybe n -- v1CronJobSpecStartingDeadlineSeconds :: Maybe Integer
+    <*> arbitraryReducedMaybe n -- v1CronJobSpecSuccessfulJobsHistoryLimit :: Maybe Int
+    <*> arbitraryReducedMaybe n -- v1CronJobSpecSuspend :: Maybe Bool
+  
+instance Arbitrary V1CronJobStatus where
+  arbitrary = sized genV1CronJobStatus
+
+genV1CronJobStatus :: Int -> Gen V1CronJobStatus
+genV1CronJobStatus n =
+  V1CronJobStatus
+    <$> arbitraryReducedMaybe n -- v1CronJobStatusActive :: Maybe [V1ObjectReference]
+    <*> arbitraryReducedMaybe n -- v1CronJobStatusLastScheduleTime :: Maybe DateTime
+    <*> arbitraryReducedMaybe n -- v1CronJobStatusLastSuccessfulTime :: Maybe DateTime
+  
 instance Arbitrary V1CrossVersionObjectReference where
   arbitrary = sized genV1CrossVersionObjectReference
 
@@ -1639,6 +1686,21 @@ genV1EmptyDirVolumeSource n =
     <$> arbitraryReducedMaybe n -- v1EmptyDirVolumeSourceMedium :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1EmptyDirVolumeSourceSizeLimit :: Maybe Quantity
   
+instance Arbitrary V1Endpoint where
+  arbitrary = sized genV1Endpoint
+
+genV1Endpoint :: Int -> Gen V1Endpoint
+genV1Endpoint n =
+  V1Endpoint
+    <$> arbitrary -- v1EndpointAddresses :: [Text]
+    <*> arbitraryReducedMaybe n -- v1EndpointConditions :: Maybe V1EndpointConditions
+    <*> arbitraryReducedMaybe n -- v1EndpointDeprecatedTopology :: Maybe (Map.Map String Text)
+    <*> arbitraryReducedMaybe n -- v1EndpointHints :: Maybe V1EndpointHints
+    <*> arbitraryReducedMaybe n -- v1EndpointHostname :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1EndpointNodeName :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1EndpointTargetRef :: Maybe V1ObjectReference
+    <*> arbitraryReducedMaybe n -- v1EndpointZone :: Maybe Text
+  
 instance Arbitrary V1EndpointAddress where
   arbitrary = sized genV1EndpointAddress
 
@@ -1650,16 +1712,47 @@ genV1EndpointAddress n =
     <*> arbitraryReducedMaybe n -- v1EndpointAddressNodeName :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1EndpointAddressTargetRef :: Maybe V1ObjectReference
   
-instance Arbitrary V1EndpointPort where
-  arbitrary = sized genV1EndpointPort
+instance Arbitrary V1EndpointConditions where
+  arbitrary = sized genV1EndpointConditions
 
-genV1EndpointPort :: Int -> Gen V1EndpointPort
-genV1EndpointPort n =
-  V1EndpointPort
-    <$> arbitraryReducedMaybe n -- v1EndpointPortAppProtocol :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1EndpointPortName :: Maybe Text
-    <*> arbitrary -- v1EndpointPortPort :: Int
-    <*> arbitraryReducedMaybe n -- v1EndpointPortProtocol :: Maybe Text
+genV1EndpointConditions :: Int -> Gen V1EndpointConditions
+genV1EndpointConditions n =
+  V1EndpointConditions
+    <$> arbitraryReducedMaybe n -- v1EndpointConditionsReady :: Maybe Bool
+    <*> arbitraryReducedMaybe n -- v1EndpointConditionsServing :: Maybe Bool
+    <*> arbitraryReducedMaybe n -- v1EndpointConditionsTerminating :: Maybe Bool
+  
+instance Arbitrary V1EndpointHints where
+  arbitrary = sized genV1EndpointHints
+
+genV1EndpointHints :: Int -> Gen V1EndpointHints
+genV1EndpointHints n =
+  V1EndpointHints
+    <$> arbitraryReducedMaybe n -- v1EndpointHintsForZones :: Maybe [V1ForZone]
+  
+instance Arbitrary V1EndpointSlice where
+  arbitrary = sized genV1EndpointSlice
+
+genV1EndpointSlice :: Int -> Gen V1EndpointSlice
+genV1EndpointSlice n =
+  V1EndpointSlice
+    <$> arbitrary -- v1EndpointSliceAddressType :: Text
+    <*> arbitraryReducedMaybe n -- v1EndpointSliceApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1EndpointSliceEndpoints :: [V1Endpoint]
+    <*> arbitraryReducedMaybe n -- v1EndpointSliceKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1EndpointSliceMetadata :: Maybe V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1EndpointSlicePorts :: Maybe [DiscoveryV1EndpointPort]
+  
+instance Arbitrary V1EndpointSliceList where
+  arbitrary = sized genV1EndpointSliceList
+
+genV1EndpointSliceList :: Int -> Gen V1EndpointSliceList
+genV1EndpointSliceList n =
+  V1EndpointSliceList
+    <$> arbitraryReducedMaybe n -- v1EndpointSliceListApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1EndpointSliceListItems :: [V1EndpointSlice]
+    <*> arbitraryReducedMaybe n -- v1EndpointSliceListKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1EndpointSliceListMetadata :: Maybe V1ListMeta
   
 instance Arbitrary V1EndpointSubset where
   arbitrary = sized genV1EndpointSubset
@@ -1669,7 +1762,7 @@ genV1EndpointSubset n =
   V1EndpointSubset
     <$> arbitraryReducedMaybe n -- v1EndpointSubsetAddresses :: Maybe [V1EndpointAddress]
     <*> arbitraryReducedMaybe n -- v1EndpointSubsetNotReadyAddresses :: Maybe [V1EndpointAddress]
-    <*> arbitraryReducedMaybe n -- v1EndpointSubsetPorts :: Maybe [V1EndpointPort]
+    <*> arbitraryReducedMaybe n -- v1EndpointSubsetPorts :: Maybe [CoreV1EndpointPort]
   
 instance Arbitrary V1Endpoints where
   arbitrary = sized genV1Endpoints
@@ -1754,14 +1847,24 @@ genV1EphemeralContainer n =
     <*> arbitraryReducedMaybe n -- v1EphemeralContainerVolumeMounts :: Maybe [V1VolumeMount]
     <*> arbitraryReducedMaybe n -- v1EphemeralContainerWorkingDir :: Maybe Text
   
+instance Arbitrary V1EphemeralContainers where
+  arbitrary = sized genV1EphemeralContainers
+
+genV1EphemeralContainers :: Int -> Gen V1EphemeralContainers
+genV1EphemeralContainers n =
+  V1EphemeralContainers
+    <$> arbitraryReducedMaybe n -- v1EphemeralContainersApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1EphemeralContainersEphemeralContainers :: [V1EphemeralContainer]
+    <*> arbitraryReducedMaybe n -- v1EphemeralContainersKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1EphemeralContainersMetadata :: Maybe V1ObjectMeta
+  
 instance Arbitrary V1EphemeralVolumeSource where
   arbitrary = sized genV1EphemeralVolumeSource
 
 genV1EphemeralVolumeSource :: Int -> Gen V1EphemeralVolumeSource
 genV1EphemeralVolumeSource n =
   V1EphemeralVolumeSource
-    <$> arbitraryReducedMaybe n -- v1EphemeralVolumeSourceReadOnly :: Maybe Bool
-    <*> arbitraryReducedMaybe n -- v1EphemeralVolumeSourceVolumeClaimTemplate :: Maybe V1PersistentVolumeClaimTemplate
+    <$> arbitraryReducedMaybe n -- v1EphemeralVolumeSourceVolumeClaimTemplate :: Maybe V1PersistentVolumeClaimTemplate
   
 instance Arbitrary V1EventSource where
   arbitrary = sized genV1EventSource
@@ -1833,6 +1936,14 @@ genV1FlockerVolumeSource n =
   V1FlockerVolumeSource
     <$> arbitraryReducedMaybe n -- v1FlockerVolumeSourceDatasetName :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1FlockerVolumeSourceDatasetUuid :: Maybe Text
+  
+instance Arbitrary V1ForZone where
+  arbitrary = sized genV1ForZone
+
+genV1ForZone :: Int -> Gen V1ForZone
+genV1ForZone n =
+  V1ForZone
+    <$> arbitrary -- v1ForZoneName :: Text
   
 instance Arbitrary V1GCEPersistentDiskVolumeSource where
   arbitrary = sized genV1GCEPersistentDiskVolumeSource
@@ -2086,6 +2197,18 @@ genV1IngressClassList n =
     <*> arbitraryReducedMaybe n -- v1IngressClassListKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1IngressClassListMetadata :: Maybe V1ListMeta
   
+instance Arbitrary V1IngressClassParametersReference where
+  arbitrary = sized genV1IngressClassParametersReference
+
+genV1IngressClassParametersReference :: Int -> Gen V1IngressClassParametersReference
+genV1IngressClassParametersReference n =
+  V1IngressClassParametersReference
+    <$> arbitraryReducedMaybe n -- v1IngressClassParametersReferenceApiGroup :: Maybe Text
+    <*> arbitrary -- v1IngressClassParametersReferenceKind :: Text
+    <*> arbitrary -- v1IngressClassParametersReferenceName :: Text
+    <*> arbitraryReducedMaybe n -- v1IngressClassParametersReferenceNamespace :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1IngressClassParametersReferenceScope :: Maybe Text
+  
 instance Arbitrary V1IngressClassSpec where
   arbitrary = sized genV1IngressClassSpec
 
@@ -2093,7 +2216,7 @@ genV1IngressClassSpec :: Int -> Gen V1IngressClassSpec
 genV1IngressClassSpec n =
   V1IngressClassSpec
     <$> arbitraryReducedMaybe n -- v1IngressClassSpecController :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1IngressClassSpecParameters :: Maybe V1TypedLocalObjectReference
+    <*> arbitraryReducedMaybe n -- v1IngressClassSpecParameters :: Maybe V1IngressClassParametersReference
   
 instance Arbitrary V1IngressList where
   arbitrary = sized genV1IngressList
@@ -2246,10 +2369,12 @@ genV1JobSpec n =
   V1JobSpec
     <$> arbitraryReducedMaybe n -- v1JobSpecActiveDeadlineSeconds :: Maybe Integer
     <*> arbitraryReducedMaybe n -- v1JobSpecBackoffLimit :: Maybe Int
+    <*> arbitraryReducedMaybe n -- v1JobSpecCompletionMode :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1JobSpecCompletions :: Maybe Int
     <*> arbitraryReducedMaybe n -- v1JobSpecManualSelector :: Maybe Bool
     <*> arbitraryReducedMaybe n -- v1JobSpecParallelism :: Maybe Int
     <*> arbitraryReducedMaybe n -- v1JobSpecSelector :: Maybe V1LabelSelector
+    <*> arbitraryReducedMaybe n -- v1JobSpecSuspend :: Maybe Bool
     <*> arbitraryReduced n -- v1JobSpecTemplate :: V1PodTemplateSpec
     <*> arbitraryReducedMaybe n -- v1JobSpecTtlSecondsAfterFinished :: Maybe Int
   
@@ -2260,11 +2385,21 @@ genV1JobStatus :: Int -> Gen V1JobStatus
 genV1JobStatus n =
   V1JobStatus
     <$> arbitraryReducedMaybe n -- v1JobStatusActive :: Maybe Int
+    <*> arbitraryReducedMaybe n -- v1JobStatusCompletedIndexes :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1JobStatusCompletionTime :: Maybe DateTime
     <*> arbitraryReducedMaybe n -- v1JobStatusConditions :: Maybe [V1JobCondition]
     <*> arbitraryReducedMaybe n -- v1JobStatusFailed :: Maybe Int
     <*> arbitraryReducedMaybe n -- v1JobStatusStartTime :: Maybe DateTime
     <*> arbitraryReducedMaybe n -- v1JobStatusSucceeded :: Maybe Int
+  
+instance Arbitrary V1JobTemplateSpec where
+  arbitrary = sized genV1JobTemplateSpec
+
+genV1JobTemplateSpec :: Int -> Gen V1JobTemplateSpec
+genV1JobTemplateSpec n =
+  V1JobTemplateSpec
+    <$> arbitraryReducedMaybe n -- v1JobTemplateSpecMetadata :: Maybe V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1JobTemplateSpecSpec :: Maybe V1JobSpec
   
 instance Arbitrary V1KeyToPath where
   arbitrary = sized genV1KeyToPath
@@ -2610,7 +2745,8 @@ instance Arbitrary V1NetworkPolicyPort where
 genV1NetworkPolicyPort :: Int -> Gen V1NetworkPolicyPort
 genV1NetworkPolicyPort n =
   V1NetworkPolicyPort
-    <$> arbitraryReducedMaybe n -- v1NetworkPolicyPortPort :: Maybe IntOrString
+    <$> arbitraryReducedMaybe n -- v1NetworkPolicyPortEndPort :: Maybe Int
+    <*> arbitraryReducedMaybe n -- v1NetworkPolicyPortPort :: Maybe IntOrString
     <*> arbitraryReducedMaybe n -- v1NetworkPolicyPortProtocol :: Maybe Text
   
 instance Arbitrary V1NetworkPolicySpec where
@@ -3052,6 +3188,7 @@ genV1PodAffinityTerm :: Int -> Gen V1PodAffinityTerm
 genV1PodAffinityTerm n =
   V1PodAffinityTerm
     <$> arbitraryReducedMaybe n -- v1PodAffinityTermLabelSelector :: Maybe V1LabelSelector
+    <*> arbitraryReducedMaybe n -- v1PodAffinityTermNamespaceSelector :: Maybe V1LabelSelector
     <*> arbitraryReducedMaybe n -- v1PodAffinityTermNamespaces :: Maybe [Text]
     <*> arbitrary -- v1PodAffinityTermTopologyKey :: Text
   
@@ -3095,6 +3232,53 @@ genV1PodDNSConfigOption n =
   V1PodDNSConfigOption
     <$> arbitraryReducedMaybe n -- v1PodDNSConfigOptionName :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1PodDNSConfigOptionValue :: Maybe Text
+  
+instance Arbitrary V1PodDisruptionBudget where
+  arbitrary = sized genV1PodDisruptionBudget
+
+genV1PodDisruptionBudget :: Int -> Gen V1PodDisruptionBudget
+genV1PodDisruptionBudget n =
+  V1PodDisruptionBudget
+    <$> arbitraryReducedMaybe n -- v1PodDisruptionBudgetApiVersion :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetMetadata :: Maybe V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetSpec :: Maybe V1PodDisruptionBudgetSpec
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetStatus :: Maybe V1PodDisruptionBudgetStatus
+  
+instance Arbitrary V1PodDisruptionBudgetList where
+  arbitrary = sized genV1PodDisruptionBudgetList
+
+genV1PodDisruptionBudgetList :: Int -> Gen V1PodDisruptionBudgetList
+genV1PodDisruptionBudgetList n =
+  V1PodDisruptionBudgetList
+    <$> arbitraryReducedMaybe n -- v1PodDisruptionBudgetListApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1PodDisruptionBudgetListItems :: [V1PodDisruptionBudget]
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetListKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetListMetadata :: Maybe V1ListMeta
+  
+instance Arbitrary V1PodDisruptionBudgetSpec where
+  arbitrary = sized genV1PodDisruptionBudgetSpec
+
+genV1PodDisruptionBudgetSpec :: Int -> Gen V1PodDisruptionBudgetSpec
+genV1PodDisruptionBudgetSpec n =
+  V1PodDisruptionBudgetSpec
+    <$> arbitraryReducedMaybe n -- v1PodDisruptionBudgetSpecMaxUnavailable :: Maybe IntOrString
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetSpecMinAvailable :: Maybe IntOrString
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetSpecSelector :: Maybe V1LabelSelector
+  
+instance Arbitrary V1PodDisruptionBudgetStatus where
+  arbitrary = sized genV1PodDisruptionBudgetStatus
+
+genV1PodDisruptionBudgetStatus :: Int -> Gen V1PodDisruptionBudgetStatus
+genV1PodDisruptionBudgetStatus n =
+  V1PodDisruptionBudgetStatus
+    <$> arbitraryReducedMaybe n -- v1PodDisruptionBudgetStatusConditions :: Maybe [V1Condition]
+    <*> arbitrary -- v1PodDisruptionBudgetStatusCurrentHealthy :: Int
+    <*> arbitrary -- v1PodDisruptionBudgetStatusDesiredHealthy :: Int
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetStatusDisruptedPods :: Maybe (Map.Map String DateTime)
+    <*> arbitrary -- v1PodDisruptionBudgetStatusDisruptionsAllowed :: Int
+    <*> arbitrary -- v1PodDisruptionBudgetStatusExpectedPods :: Int
+    <*> arbitraryReducedMaybe n -- v1PodDisruptionBudgetStatusObservedGeneration :: Maybe Integer
   
 instance Arbitrary V1PodIP where
   arbitrary = sized genV1PodIP
@@ -3321,6 +3505,7 @@ genV1Probe n =
     <*> arbitraryReducedMaybe n -- v1ProbePeriodSeconds :: Maybe Int
     <*> arbitraryReducedMaybe n -- v1ProbeSuccessThreshold :: Maybe Int
     <*> arbitraryReducedMaybe n -- v1ProbeTcpSocket :: Maybe V1TCPSocketAction
+    <*> arbitraryReducedMaybe n -- v1ProbeTerminationGracePeriodSeconds :: Maybe Integer
     <*> arbitraryReducedMaybe n -- v1ProbeTimeoutSeconds :: Maybe Int
   
 instance Arbitrary V1ProjectedVolumeSource where
@@ -3640,7 +3825,8 @@ instance Arbitrary V1RollingUpdateDaemonSet where
 genV1RollingUpdateDaemonSet :: Int -> Gen V1RollingUpdateDaemonSet
 genV1RollingUpdateDaemonSet n =
   V1RollingUpdateDaemonSet
-    <$> arbitraryReducedMaybe n -- v1RollingUpdateDaemonSetMaxUnavailable :: Maybe IntOrString
+    <$> arbitraryReducedMaybe n -- v1RollingUpdateDaemonSetMaxSurge :: Maybe IntOrString
+    <*> arbitraryReducedMaybe n -- v1RollingUpdateDaemonSetMaxUnavailable :: Maybe IntOrString
   
 instance Arbitrary V1RollingUpdateDeployment where
   arbitrary = sized genV1RollingUpdateDeployment
@@ -4039,8 +4225,10 @@ genV1ServiceSpec n =
     <*> arbitraryReducedMaybe n -- v1ServiceSpecExternalName :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1ServiceSpecExternalTrafficPolicy :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1ServiceSpecHealthCheckNodePort :: Maybe Int
+    <*> arbitraryReducedMaybe n -- v1ServiceSpecInternalTrafficPolicy :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1ServiceSpecIpFamilies :: Maybe [Text]
     <*> arbitraryReducedMaybe n -- v1ServiceSpecIpFamilyPolicy :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1ServiceSpecLoadBalancerClass :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1ServiceSpecLoadBalancerIp :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1ServiceSpecLoadBalancerSourceRanges :: Maybe [Text]
     <*> arbitraryReducedMaybe n -- v1ServiceSpecPorts :: Maybe [V1ServicePort]
@@ -4675,6 +4863,31 @@ genV1alpha1AggregationRule n =
   V1alpha1AggregationRule
     <$> arbitraryReducedMaybe n -- v1alpha1AggregationRuleClusterRoleSelectors :: Maybe [V1LabelSelector]
   
+instance Arbitrary V1alpha1CSIStorageCapacity where
+  arbitrary = sized genV1alpha1CSIStorageCapacity
+
+genV1alpha1CSIStorageCapacity :: Int -> Gen V1alpha1CSIStorageCapacity
+genV1alpha1CSIStorageCapacity n =
+  V1alpha1CSIStorageCapacity
+    <$> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityApiVersion :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityCapacity :: Maybe Quantity
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityMaximumVolumeSize :: Maybe Quantity
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityMetadata :: Maybe V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityNodeTopology :: Maybe V1LabelSelector
+    <*> arbitrary -- v1alpha1CSIStorageCapacityStorageClassName :: Text
+  
+instance Arbitrary V1alpha1CSIStorageCapacityList where
+  arbitrary = sized genV1alpha1CSIStorageCapacityList
+
+genV1alpha1CSIStorageCapacityList :: Int -> Gen V1alpha1CSIStorageCapacityList
+genV1alpha1CSIStorageCapacityList n =
+  V1alpha1CSIStorageCapacityList
+    <$> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityListApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1alpha1CSIStorageCapacityListItems :: [V1alpha1CSIStorageCapacity]
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityListKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1alpha1CSIStorageCapacityListMetadata :: Maybe V1ListMeta
+  
 instance Arbitrary V1alpha1ClusterRole where
   arbitrary = sized genV1alpha1ClusterRole
 
@@ -4697,7 +4910,7 @@ genV1alpha1ClusterRoleBinding n =
     <*> arbitraryReducedMaybe n -- v1alpha1ClusterRoleBindingKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1alpha1ClusterRoleBindingMetadata :: Maybe V1ObjectMeta
     <*> arbitraryReduced n -- v1alpha1ClusterRoleBindingRoleRef :: V1alpha1RoleRef
-    <*> arbitraryReducedMaybe n -- v1alpha1ClusterRoleBindingSubjects :: Maybe [RbacV1alpha1Subject]
+    <*> arbitraryReducedMaybe n -- v1alpha1ClusterRoleBindingSubjects :: Maybe [V1alpha1Subject]
   
 instance Arbitrary V1alpha1ClusterRoleBindingList where
   arbitrary = sized genV1alpha1ClusterRoleBindingList
@@ -4721,103 +4934,6 @@ genV1alpha1ClusterRoleList n =
     <*> arbitraryReducedMaybe n -- v1alpha1ClusterRoleListKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1alpha1ClusterRoleListMetadata :: Maybe V1ListMeta
   
-instance Arbitrary V1alpha1FlowDistinguisherMethod where
-  arbitrary = sized genV1alpha1FlowDistinguisherMethod
-
-genV1alpha1FlowDistinguisherMethod :: Int -> Gen V1alpha1FlowDistinguisherMethod
-genV1alpha1FlowDistinguisherMethod n =
-  V1alpha1FlowDistinguisherMethod
-    <$> arbitrary -- v1alpha1FlowDistinguisherMethodType :: Text
-  
-instance Arbitrary V1alpha1FlowSchema where
-  arbitrary = sized genV1alpha1FlowSchema
-
-genV1alpha1FlowSchema :: Int -> Gen V1alpha1FlowSchema
-genV1alpha1FlowSchema n =
-  V1alpha1FlowSchema
-    <$> arbitraryReducedMaybe n -- v1alpha1FlowSchemaApiVersion :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaKind :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaMetadata :: Maybe V1ObjectMeta
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaSpec :: Maybe V1alpha1FlowSchemaSpec
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaStatus :: Maybe V1alpha1FlowSchemaStatus
-  
-instance Arbitrary V1alpha1FlowSchemaCondition where
-  arbitrary = sized genV1alpha1FlowSchemaCondition
-
-genV1alpha1FlowSchemaCondition :: Int -> Gen V1alpha1FlowSchemaCondition
-genV1alpha1FlowSchemaCondition n =
-  V1alpha1FlowSchemaCondition
-    <$> arbitraryReducedMaybe n -- v1alpha1FlowSchemaConditionLastTransitionTime :: Maybe DateTime
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaConditionMessage :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaConditionReason :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaConditionStatus :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaConditionType :: Maybe Text
-  
-instance Arbitrary V1alpha1FlowSchemaList where
-  arbitrary = sized genV1alpha1FlowSchemaList
-
-genV1alpha1FlowSchemaList :: Int -> Gen V1alpha1FlowSchemaList
-genV1alpha1FlowSchemaList n =
-  V1alpha1FlowSchemaList
-    <$> arbitraryReducedMaybe n -- v1alpha1FlowSchemaListApiVersion :: Maybe Text
-    <*> arbitraryReduced n -- v1alpha1FlowSchemaListItems :: [V1alpha1FlowSchema]
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaListKind :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaListMetadata :: Maybe V1ListMeta
-  
-instance Arbitrary V1alpha1FlowSchemaSpec where
-  arbitrary = sized genV1alpha1FlowSchemaSpec
-
-genV1alpha1FlowSchemaSpec :: Int -> Gen V1alpha1FlowSchemaSpec
-genV1alpha1FlowSchemaSpec n =
-  V1alpha1FlowSchemaSpec
-    <$> arbitraryReducedMaybe n -- v1alpha1FlowSchemaSpecDistinguisherMethod :: Maybe V1alpha1FlowDistinguisherMethod
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaSpecMatchingPrecedence :: Maybe Int
-    <*> arbitraryReduced n -- v1alpha1FlowSchemaSpecPriorityLevelConfiguration :: V1alpha1PriorityLevelConfigurationReference
-    <*> arbitraryReducedMaybe n -- v1alpha1FlowSchemaSpecRules :: Maybe [V1alpha1PolicyRulesWithSubjects]
-  
-instance Arbitrary V1alpha1FlowSchemaStatus where
-  arbitrary = sized genV1alpha1FlowSchemaStatus
-
-genV1alpha1FlowSchemaStatus :: Int -> Gen V1alpha1FlowSchemaStatus
-genV1alpha1FlowSchemaStatus n =
-  V1alpha1FlowSchemaStatus
-    <$> arbitraryReducedMaybe n -- v1alpha1FlowSchemaStatusConditions :: Maybe [V1alpha1FlowSchemaCondition]
-  
-instance Arbitrary V1alpha1GroupSubject where
-  arbitrary = sized genV1alpha1GroupSubject
-
-genV1alpha1GroupSubject :: Int -> Gen V1alpha1GroupSubject
-genV1alpha1GroupSubject n =
-  V1alpha1GroupSubject
-    <$> arbitrary -- v1alpha1GroupSubjectName :: Text
-  
-instance Arbitrary V1alpha1LimitResponse where
-  arbitrary = sized genV1alpha1LimitResponse
-
-genV1alpha1LimitResponse :: Int -> Gen V1alpha1LimitResponse
-genV1alpha1LimitResponse n =
-  V1alpha1LimitResponse
-    <$> arbitraryReducedMaybe n -- v1alpha1LimitResponseQueuing :: Maybe V1alpha1QueuingConfiguration
-    <*> arbitrary -- v1alpha1LimitResponseType :: Text
-  
-instance Arbitrary V1alpha1LimitedPriorityLevelConfiguration where
-  arbitrary = sized genV1alpha1LimitedPriorityLevelConfiguration
-
-genV1alpha1LimitedPriorityLevelConfiguration :: Int -> Gen V1alpha1LimitedPriorityLevelConfiguration
-genV1alpha1LimitedPriorityLevelConfiguration n =
-  V1alpha1LimitedPriorityLevelConfiguration
-    <$> arbitraryReducedMaybe n -- v1alpha1LimitedPriorityLevelConfigurationAssuredConcurrencyShares :: Maybe Int
-    <*> arbitraryReducedMaybe n -- v1alpha1LimitedPriorityLevelConfigurationLimitResponse :: Maybe V1alpha1LimitResponse
-  
-instance Arbitrary V1alpha1NonResourcePolicyRule where
-  arbitrary = sized genV1alpha1NonResourcePolicyRule
-
-genV1alpha1NonResourcePolicyRule :: Int -> Gen V1alpha1NonResourcePolicyRule
-genV1alpha1NonResourcePolicyRule n =
-  V1alpha1NonResourcePolicyRule
-    <$> arbitrary -- v1alpha1NonResourcePolicyRuleNonResourceUrls :: [Text]
-    <*> arbitrary -- v1alpha1NonResourcePolicyRuleVerbs :: [Text]
-  
 instance Arbitrary V1alpha1Overhead where
   arbitrary = sized genV1alpha1Overhead
 
@@ -4837,16 +4953,6 @@ genV1alpha1PolicyRule n =
     <*> arbitraryReducedMaybe n -- v1alpha1PolicyRuleResourceNames :: Maybe [Text]
     <*> arbitraryReducedMaybe n -- v1alpha1PolicyRuleResources :: Maybe [Text]
     <*> arbitrary -- v1alpha1PolicyRuleVerbs :: [Text]
-  
-instance Arbitrary V1alpha1PolicyRulesWithSubjects where
-  arbitrary = sized genV1alpha1PolicyRulesWithSubjects
-
-genV1alpha1PolicyRulesWithSubjects :: Int -> Gen V1alpha1PolicyRulesWithSubjects
-genV1alpha1PolicyRulesWithSubjects n =
-  V1alpha1PolicyRulesWithSubjects
-    <$> arbitraryReducedMaybe n -- v1alpha1PolicyRulesWithSubjectsNonResourceRules :: Maybe [V1alpha1NonResourcePolicyRule]
-    <*> arbitraryReducedMaybe n -- v1alpha1PolicyRulesWithSubjectsResourceRules :: Maybe [V1alpha1ResourcePolicyRule]
-    <*> arbitraryReduced n -- v1alpha1PolicyRulesWithSubjectsSubjects :: [FlowcontrolV1alpha1Subject]
   
 instance Arbitrary V1alpha1PriorityClass where
   arbitrary = sized genV1alpha1PriorityClass
@@ -4873,88 +4979,6 @@ genV1alpha1PriorityClassList n =
     <*> arbitraryReducedMaybe n -- v1alpha1PriorityClassListKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1alpha1PriorityClassListMetadata :: Maybe V1ListMeta
   
-instance Arbitrary V1alpha1PriorityLevelConfiguration where
-  arbitrary = sized genV1alpha1PriorityLevelConfiguration
-
-genV1alpha1PriorityLevelConfiguration :: Int -> Gen V1alpha1PriorityLevelConfiguration
-genV1alpha1PriorityLevelConfiguration n =
-  V1alpha1PriorityLevelConfiguration
-    <$> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationApiVersion :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationKind :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationMetadata :: Maybe V1ObjectMeta
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationSpec :: Maybe V1alpha1PriorityLevelConfigurationSpec
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationStatus :: Maybe V1alpha1PriorityLevelConfigurationStatus
-  
-instance Arbitrary V1alpha1PriorityLevelConfigurationCondition where
-  arbitrary = sized genV1alpha1PriorityLevelConfigurationCondition
-
-genV1alpha1PriorityLevelConfigurationCondition :: Int -> Gen V1alpha1PriorityLevelConfigurationCondition
-genV1alpha1PriorityLevelConfigurationCondition n =
-  V1alpha1PriorityLevelConfigurationCondition
-    <$> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationConditionLastTransitionTime :: Maybe DateTime
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationConditionMessage :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationConditionReason :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationConditionStatus :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationConditionType :: Maybe Text
-  
-instance Arbitrary V1alpha1PriorityLevelConfigurationList where
-  arbitrary = sized genV1alpha1PriorityLevelConfigurationList
-
-genV1alpha1PriorityLevelConfigurationList :: Int -> Gen V1alpha1PriorityLevelConfigurationList
-genV1alpha1PriorityLevelConfigurationList n =
-  V1alpha1PriorityLevelConfigurationList
-    <$> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationListApiVersion :: Maybe Text
-    <*> arbitraryReduced n -- v1alpha1PriorityLevelConfigurationListItems :: [V1alpha1PriorityLevelConfiguration]
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationListKind :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationListMetadata :: Maybe V1ListMeta
-  
-instance Arbitrary V1alpha1PriorityLevelConfigurationReference where
-  arbitrary = sized genV1alpha1PriorityLevelConfigurationReference
-
-genV1alpha1PriorityLevelConfigurationReference :: Int -> Gen V1alpha1PriorityLevelConfigurationReference
-genV1alpha1PriorityLevelConfigurationReference n =
-  V1alpha1PriorityLevelConfigurationReference
-    <$> arbitrary -- v1alpha1PriorityLevelConfigurationReferenceName :: Text
-  
-instance Arbitrary V1alpha1PriorityLevelConfigurationSpec where
-  arbitrary = sized genV1alpha1PriorityLevelConfigurationSpec
-
-genV1alpha1PriorityLevelConfigurationSpec :: Int -> Gen V1alpha1PriorityLevelConfigurationSpec
-genV1alpha1PriorityLevelConfigurationSpec n =
-  V1alpha1PriorityLevelConfigurationSpec
-    <$> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationSpecLimited :: Maybe V1alpha1LimitedPriorityLevelConfiguration
-    <*> arbitrary -- v1alpha1PriorityLevelConfigurationSpecType :: Text
-  
-instance Arbitrary V1alpha1PriorityLevelConfigurationStatus where
-  arbitrary = sized genV1alpha1PriorityLevelConfigurationStatus
-
-genV1alpha1PriorityLevelConfigurationStatus :: Int -> Gen V1alpha1PriorityLevelConfigurationStatus
-genV1alpha1PriorityLevelConfigurationStatus n =
-  V1alpha1PriorityLevelConfigurationStatus
-    <$> arbitraryReducedMaybe n -- v1alpha1PriorityLevelConfigurationStatusConditions :: Maybe [V1alpha1PriorityLevelConfigurationCondition]
-  
-instance Arbitrary V1alpha1QueuingConfiguration where
-  arbitrary = sized genV1alpha1QueuingConfiguration
-
-genV1alpha1QueuingConfiguration :: Int -> Gen V1alpha1QueuingConfiguration
-genV1alpha1QueuingConfiguration n =
-  V1alpha1QueuingConfiguration
-    <$> arbitraryReducedMaybe n -- v1alpha1QueuingConfigurationHandSize :: Maybe Int
-    <*> arbitraryReducedMaybe n -- v1alpha1QueuingConfigurationQueueLengthLimit :: Maybe Int
-    <*> arbitraryReducedMaybe n -- v1alpha1QueuingConfigurationQueues :: Maybe Int
-  
-instance Arbitrary V1alpha1ResourcePolicyRule where
-  arbitrary = sized genV1alpha1ResourcePolicyRule
-
-genV1alpha1ResourcePolicyRule :: Int -> Gen V1alpha1ResourcePolicyRule
-genV1alpha1ResourcePolicyRule n =
-  V1alpha1ResourcePolicyRule
-    <$> arbitrary -- v1alpha1ResourcePolicyRuleApiGroups :: [Text]
-    <*> arbitraryReducedMaybe n -- v1alpha1ResourcePolicyRuleClusterScope :: Maybe Bool
-    <*> arbitraryReducedMaybe n -- v1alpha1ResourcePolicyRuleNamespaces :: Maybe [Text]
-    <*> arbitrary -- v1alpha1ResourcePolicyRuleResources :: [Text]
-    <*> arbitrary -- v1alpha1ResourcePolicyRuleVerbs :: [Text]
-  
 instance Arbitrary V1alpha1Role where
   arbitrary = sized genV1alpha1Role
 
@@ -4976,7 +5000,7 @@ genV1alpha1RoleBinding n =
     <*> arbitraryReducedMaybe n -- v1alpha1RoleBindingKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1alpha1RoleBindingMetadata :: Maybe V1ObjectMeta
     <*> arbitraryReduced n -- v1alpha1RoleBindingRoleRef :: V1alpha1RoleRef
-    <*> arbitraryReducedMaybe n -- v1alpha1RoleBindingSubjects :: Maybe [RbacV1alpha1Subject]
+    <*> arbitraryReducedMaybe n -- v1alpha1RoleBindingSubjects :: Maybe [V1alpha1Subject]
   
 instance Arbitrary V1alpha1RoleBindingList where
   arbitrary = sized genV1alpha1RoleBindingList
@@ -5061,15 +5085,6 @@ genV1alpha1ServerStorageVersion n =
     <*> arbitraryReducedMaybe n -- v1alpha1ServerStorageVersionDecodableVersions :: Maybe [Text]
     <*> arbitraryReducedMaybe n -- v1alpha1ServerStorageVersionEncodingVersion :: Maybe Text
   
-instance Arbitrary V1alpha1ServiceAccountSubject where
-  arbitrary = sized genV1alpha1ServiceAccountSubject
-
-genV1alpha1ServiceAccountSubject :: Int -> Gen V1alpha1ServiceAccountSubject
-genV1alpha1ServiceAccountSubject n =
-  V1alpha1ServiceAccountSubject
-    <$> arbitrary -- v1alpha1ServiceAccountSubjectName :: Text
-    <*> arbitrary -- v1alpha1ServiceAccountSubjectNamespace :: Text
-  
 instance Arbitrary V1alpha1StorageVersion where
   arbitrary = sized genV1alpha1StorageVersion
 
@@ -5116,13 +5131,16 @@ genV1alpha1StorageVersionStatus n =
     <*> arbitraryReducedMaybe n -- v1alpha1StorageVersionStatusConditions :: Maybe [V1alpha1StorageVersionCondition]
     <*> arbitraryReducedMaybe n -- v1alpha1StorageVersionStatusStorageVersions :: Maybe [V1alpha1ServerStorageVersion]
   
-instance Arbitrary V1alpha1UserSubject where
-  arbitrary = sized genV1alpha1UserSubject
+instance Arbitrary V1alpha1Subject where
+  arbitrary = sized genV1alpha1Subject
 
-genV1alpha1UserSubject :: Int -> Gen V1alpha1UserSubject
-genV1alpha1UserSubject n =
-  V1alpha1UserSubject
-    <$> arbitrary -- v1alpha1UserSubjectName :: Text
+genV1alpha1Subject :: Int -> Gen V1alpha1Subject
+genV1alpha1Subject n =
+  V1alpha1Subject
+    <$> arbitraryReducedMaybe n -- v1alpha1SubjectApiVersion :: Maybe Text
+    <*> arbitrary -- v1alpha1SubjectKind :: Text
+    <*> arbitrary -- v1alpha1SubjectName :: Text
+    <*> arbitraryReducedMaybe n -- v1alpha1SubjectNamespace :: Maybe Text
   
 instance Arbitrary V1alpha1VolumeAttachment where
   arbitrary = sized genV1alpha1VolumeAttachment
@@ -5353,6 +5371,31 @@ genV1beta1CSINodeSpec n =
   V1beta1CSINodeSpec
     <$> arbitraryReduced n -- v1beta1CSINodeSpecDrivers :: [V1beta1CSINodeDriver]
   
+instance Arbitrary V1beta1CSIStorageCapacity where
+  arbitrary = sized genV1beta1CSIStorageCapacity
+
+genV1beta1CSIStorageCapacity :: Int -> Gen V1beta1CSIStorageCapacity
+genV1beta1CSIStorageCapacity n =
+  V1beta1CSIStorageCapacity
+    <$> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityApiVersion :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityCapacity :: Maybe Quantity
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityMaximumVolumeSize :: Maybe Quantity
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityMetadata :: Maybe V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityNodeTopology :: Maybe V1LabelSelector
+    <*> arbitrary -- v1beta1CSIStorageCapacityStorageClassName :: Text
+  
+instance Arbitrary V1beta1CSIStorageCapacityList where
+  arbitrary = sized genV1beta1CSIStorageCapacityList
+
+genV1beta1CSIStorageCapacityList :: Int -> Gen V1beta1CSIStorageCapacityList
+genV1beta1CSIStorageCapacityList n =
+  V1beta1CSIStorageCapacityList
+    <$> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityListApiVersion :: Maybe Text
+    <*> arbitraryReduced n -- v1beta1CSIStorageCapacityListItems :: [V1beta1CSIStorageCapacity]
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityListKind :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1beta1CSIStorageCapacityListMetadata :: Maybe V1ListMeta
+  
 instance Arbitrary V1beta1CertificateSigningRequest where
   arbitrary = sized genV1beta1CertificateSigningRequest
 
@@ -5503,6 +5546,7 @@ genV1beta1CronJobStatus n =
   V1beta1CronJobStatus
     <$> arbitraryReducedMaybe n -- v1beta1CronJobStatusActive :: Maybe [V1ObjectReference]
     <*> arbitraryReducedMaybe n -- v1beta1CronJobStatusLastScheduleTime :: Maybe DateTime
+    <*> arbitraryReducedMaybe n -- v1beta1CronJobStatusLastSuccessfulTime :: Maybe DateTime
   
 instance Arbitrary V1beta1CustomResourceColumnDefinition where
   arbitrary = sized genV1beta1CustomResourceColumnDefinition
@@ -5652,6 +5696,7 @@ genV1beta1Endpoint n =
   V1beta1Endpoint
     <$> arbitrary -- v1beta1EndpointAddresses :: [Text]
     <*> arbitraryReducedMaybe n -- v1beta1EndpointConditions :: Maybe V1beta1EndpointConditions
+    <*> arbitraryReducedMaybe n -- v1beta1EndpointHints :: Maybe V1beta1EndpointHints
     <*> arbitraryReducedMaybe n -- v1beta1EndpointHostname :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1beta1EndpointNodeName :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1beta1EndpointTargetRef :: Maybe V1ObjectReference
@@ -5666,6 +5711,14 @@ genV1beta1EndpointConditions n =
     <$> arbitraryReducedMaybe n -- v1beta1EndpointConditionsReady :: Maybe Bool
     <*> arbitraryReducedMaybe n -- v1beta1EndpointConditionsServing :: Maybe Bool
     <*> arbitraryReducedMaybe n -- v1beta1EndpointConditionsTerminating :: Maybe Bool
+  
+instance Arbitrary V1beta1EndpointHints where
+  arbitrary = sized genV1beta1EndpointHints
+
+genV1beta1EndpointHints :: Int -> Gen V1beta1EndpointHints
+genV1beta1EndpointHints n =
+  V1beta1EndpointHints
+    <$> arbitraryReducedMaybe n -- v1beta1EndpointHintsForZones :: Maybe [V1beta1ForZone]
   
 instance Arbitrary V1beta1EndpointPort where
   arbitrary = sized genV1beta1EndpointPort
@@ -5716,7 +5769,7 @@ genV1beta1Event n =
     <*> arbitraryReducedMaybe n -- v1beta1EventDeprecatedSource :: Maybe V1EventSource
     <*> arbitraryReduced n -- v1beta1EventEventTime :: DateTime
     <*> arbitraryReducedMaybe n -- v1beta1EventKind :: Maybe Text
-    <*> arbitraryReduced n -- v1beta1EventMetadata :: V1ObjectMeta
+    <*> arbitraryReducedMaybe n -- v1beta1EventMetadata :: Maybe V1ObjectMeta
     <*> arbitraryReducedMaybe n -- v1beta1EventNote :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1beta1EventReason :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1beta1EventRegarding :: Maybe V1ObjectReference
@@ -5837,6 +5890,14 @@ genV1beta1FlowSchemaStatus n =
   V1beta1FlowSchemaStatus
     <$> arbitraryReducedMaybe n -- v1beta1FlowSchemaStatusConditions :: Maybe [V1beta1FlowSchemaCondition]
   
+instance Arbitrary V1beta1ForZone where
+  arbitrary = sized genV1beta1ForZone
+
+genV1beta1ForZone :: Int -> Gen V1beta1ForZone
+genV1beta1ForZone n =
+  V1beta1ForZone
+    <$> arbitrary -- v1beta1ForZoneName :: Text
+  
 instance Arbitrary V1beta1GroupSubject where
   arbitrary = sized genV1beta1GroupSubject
 
@@ -5885,6 +5946,18 @@ genV1beta1IngressClassList n =
     <*> arbitraryReducedMaybe n -- v1beta1IngressClassListKind :: Maybe Text
     <*> arbitraryReducedMaybe n -- v1beta1IngressClassListMetadata :: Maybe V1ListMeta
   
+instance Arbitrary V1beta1IngressClassParametersReference where
+  arbitrary = sized genV1beta1IngressClassParametersReference
+
+genV1beta1IngressClassParametersReference :: Int -> Gen V1beta1IngressClassParametersReference
+genV1beta1IngressClassParametersReference n =
+  V1beta1IngressClassParametersReference
+    <$> arbitraryReducedMaybe n -- v1beta1IngressClassParametersReferenceApiGroup :: Maybe Text
+    <*> arbitrary -- v1beta1IngressClassParametersReferenceKind :: Text
+    <*> arbitrary -- v1beta1IngressClassParametersReferenceName :: Text
+    <*> arbitraryReducedMaybe n -- v1beta1IngressClassParametersReferenceNamespace :: Maybe Text
+    <*> arbitraryReducedMaybe n -- v1beta1IngressClassParametersReferenceScope :: Maybe Text
+  
 instance Arbitrary V1beta1IngressClassSpec where
   arbitrary = sized genV1beta1IngressClassSpec
 
@@ -5892,7 +5965,7 @@ genV1beta1IngressClassSpec :: Int -> Gen V1beta1IngressClassSpec
 genV1beta1IngressClassSpec n =
   V1beta1IngressClassSpec
     <$> arbitraryReducedMaybe n -- v1beta1IngressClassSpecController :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v1beta1IngressClassSpecParameters :: Maybe V1TypedLocalObjectReference
+    <*> arbitraryReducedMaybe n -- v1beta1IngressClassSpecParameters :: Maybe V1beta1IngressClassParametersReference
   
 instance Arbitrary V1beta1JSONSchemaProps where
   arbitrary = sized genV1beta1JSONSchemaProps
@@ -6131,7 +6204,8 @@ instance Arbitrary V1beta1PodDisruptionBudgetStatus where
 genV1beta1PodDisruptionBudgetStatus :: Int -> Gen V1beta1PodDisruptionBudgetStatus
 genV1beta1PodDisruptionBudgetStatus n =
   V1beta1PodDisruptionBudgetStatus
-    <$> arbitrary -- v1beta1PodDisruptionBudgetStatusCurrentHealthy :: Int
+    <$> arbitraryReducedMaybe n -- v1beta1PodDisruptionBudgetStatusConditions :: Maybe [V1Condition]
+    <*> arbitrary -- v1beta1PodDisruptionBudgetStatusCurrentHealthy :: Int
     <*> arbitrary -- v1beta1PodDisruptionBudgetStatusDesiredHealthy :: Int
     <*> arbitraryReducedMaybe n -- v1beta1PodDisruptionBudgetStatusDisruptedPods :: Maybe (Map.Map String DateTime)
     <*> arbitrary -- v1beta1PodDisruptionBudgetStatusDisruptionsAllowed :: Int
@@ -6783,61 +6857,6 @@ genV1beta1VolumeNodeResources :: Int -> Gen V1beta1VolumeNodeResources
 genV1beta1VolumeNodeResources n =
   V1beta1VolumeNodeResources
     <$> arbitraryReducedMaybe n -- v1beta1VolumeNodeResourcesCount :: Maybe Int
-  
-instance Arbitrary V2alpha1CronJob where
-  arbitrary = sized genV2alpha1CronJob
-
-genV2alpha1CronJob :: Int -> Gen V2alpha1CronJob
-genV2alpha1CronJob n =
-  V2alpha1CronJob
-    <$> arbitraryReducedMaybe n -- v2alpha1CronJobApiVersion :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobKind :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobMetadata :: Maybe V1ObjectMeta
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobSpec :: Maybe V2alpha1CronJobSpec
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobStatus :: Maybe V2alpha1CronJobStatus
-  
-instance Arbitrary V2alpha1CronJobList where
-  arbitrary = sized genV2alpha1CronJobList
-
-genV2alpha1CronJobList :: Int -> Gen V2alpha1CronJobList
-genV2alpha1CronJobList n =
-  V2alpha1CronJobList
-    <$> arbitraryReducedMaybe n -- v2alpha1CronJobListApiVersion :: Maybe Text
-    <*> arbitraryReduced n -- v2alpha1CronJobListItems :: [V2alpha1CronJob]
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobListKind :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobListMetadata :: Maybe V1ListMeta
-  
-instance Arbitrary V2alpha1CronJobSpec where
-  arbitrary = sized genV2alpha1CronJobSpec
-
-genV2alpha1CronJobSpec :: Int -> Gen V2alpha1CronJobSpec
-genV2alpha1CronJobSpec n =
-  V2alpha1CronJobSpec
-    <$> arbitraryReducedMaybe n -- v2alpha1CronJobSpecConcurrencyPolicy :: Maybe Text
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobSpecFailedJobsHistoryLimit :: Maybe Int
-    <*> arbitraryReduced n -- v2alpha1CronJobSpecJobTemplate :: V2alpha1JobTemplateSpec
-    <*> arbitrary -- v2alpha1CronJobSpecSchedule :: Text
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobSpecStartingDeadlineSeconds :: Maybe Integer
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobSpecSuccessfulJobsHistoryLimit :: Maybe Int
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobSpecSuspend :: Maybe Bool
-  
-instance Arbitrary V2alpha1CronJobStatus where
-  arbitrary = sized genV2alpha1CronJobStatus
-
-genV2alpha1CronJobStatus :: Int -> Gen V2alpha1CronJobStatus
-genV2alpha1CronJobStatus n =
-  V2alpha1CronJobStatus
-    <$> arbitraryReducedMaybe n -- v2alpha1CronJobStatusActive :: Maybe [V1ObjectReference]
-    <*> arbitraryReducedMaybe n -- v2alpha1CronJobStatusLastScheduleTime :: Maybe DateTime
-  
-instance Arbitrary V2alpha1JobTemplateSpec where
-  arbitrary = sized genV2alpha1JobTemplateSpec
-
-genV2alpha1JobTemplateSpec :: Int -> Gen V2alpha1JobTemplateSpec
-genV2alpha1JobTemplateSpec n =
-  V2alpha1JobTemplateSpec
-    <$> arbitraryReducedMaybe n -- v2alpha1JobTemplateSpecMetadata :: Maybe V1ObjectMeta
-    <*> arbitraryReducedMaybe n -- v2alpha1JobTemplateSpecSpec :: Maybe V1JobSpec
   
 instance Arbitrary V2beta1ContainerResourceMetricSource where
   arbitrary = sized genV2beta1ContainerResourceMetricSource
