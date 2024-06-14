@@ -29,13 +29,18 @@ jobs:
         - "1.30"
     steps:
     - uses: actions/checkout@v4
+
     - uses: haskell-actions/setup@v2
       with:
         ghc-version: ${{ matrix.compiler.ghc }}
         cabal-version: '3.8.1.0'
+
+    - uses: cachix/install-nix-action@v27
+
     - run: |
         nix run .#set-cabal-version -- "${{matrix.k8s_release}}" cabal.project
         cabal build all --enable-tests
+
     - run: |
         cabal test all
 
