@@ -2,20 +2,15 @@ on: [push]
 name: CI
 jobs:
   cabal:
-    name: Cabal / GHC ${{ matrix.ghc }}
+    name: Cabal / Kubernetes ${{ matrix.k8s_release }} / GHC ${{ matrix.ghc }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      # This full matrix at time of writing is 11 K8S versions * 6 compiler versions = 66,
+      # which is a little big for CI.
+      # Commented some older versions of each to make it manageable.
       matrix:
-        ghc:
-        # - "8.10.7"
-        # - "9.0.2"
-        # - "9.2.8"
-        - "9.4.8"
-        - "9.6.5"
-        - "9.8.2"
         k8s_release:
-        # Choose a subset of these to ease the load on CI
         # - "1.20"
         # - "1.21"
         # - "1.22"
@@ -27,6 +22,13 @@ jobs:
         - "1.28"
         - "1.29"
         - "1.30"
+        ghc:
+        # - "8.10.7"
+        # - "9.0.2"
+        # - "9.2.8"
+        - "9.4.8"
+        - "9.6.5"
+        - "9.8.2"
     steps:
     - uses: actions/checkout@v4
 
