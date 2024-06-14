@@ -55,6 +55,7 @@ data Config = Config
   , currentContext :: Text
   } deriving (Eq, Generic, Show)
 
+configJSONOptions :: Options
 configJSONOptions = camelToWithOverrides
     '-'
     (Map.fromList [("apiVersion", "apiVersion"), ("authInfos", "users")])
@@ -128,6 +129,7 @@ data AuthInfo = AuthInfo
   , authProvider          :: Maybe AuthProviderConfig
   } deriving (Eq, Generic, Show, Typeable)
 
+authInfoJSONOptions :: Options
 authInfoJSONOptions = camelToWithOverrides
     '-'
     ( Map.fromList
