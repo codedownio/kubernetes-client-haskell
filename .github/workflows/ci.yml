@@ -77,7 +77,7 @@ jobs:
 
     - name: Build
       run: |
-        nix run .#set-stack-version -- "${matrix.k8s_release}" "${{matrix.compiler.yaml}}"
+        nix run .#set-stack-version -- "${{matrix.k8s_release}}" "${{matrix.compiler.yaml}}"
 
         stack build --stack-yaml ${{matrix.compiler.yaml}} --system-ghc --test --bench --no-run-tests --no-run-benchmarks
 
