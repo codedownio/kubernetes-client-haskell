@@ -2,7 +2,7 @@ on: [push]
 name: CI
 jobs:
   cabal:
-    name: Cabal / Kubernetes ${{ matrix.k8s_release }} / GHC ${{ matrix.ghc }}
+    name: Cabal / K8S ${{ matrix.k8s_release }} / GHC ${{ matrix.ghc }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -47,7 +47,7 @@ jobs:
         cabal test all
 
   stack:
-    name: Stack / Kubernetes ${{ matrix.k8s_release }} / GHC ${{ matrix.compiler.ghc }}
+    name: Stack / K8S ${{ matrix.k8s_release }} / GHC ${{ matrix.compiler.ghc }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
