@@ -15,55 +15,6 @@ packages:
   original:
     commit: b70757b85751525cba41316ea9af132d9a43cfaf
     git: https://github.com/codedownio/haskell-oidc-client
-- completed:
-    hackage: crypton-connection-0.3.2@sha256:c7937edc25ab022bcf167703f2ec5ab73b62908e545bb587d2aa42b33cd6f6cc,1581
-    pantry-tree:
-      sha256: f986ad29b008cbe5732606e9cde1897191c486a2f1f169a4cb75fd915bce397c
-      size: 394
-  original:
-    hackage: crypton-connection-0.3.2@sha256:c7937edc25ab022bcf167703f2ec5ab73b62908e545bb587d2aa42b33cd6f6cc,1581
-- completed:
-    hackage: crypton-x509-1.7.6@sha256:c567657a705b6d6521f9dd2de999bf530d618ec00f3b939df76a41fb0fe94281,2339
-    pantry-tree:
-      sha256: 729e7db8dfc0a8b43e08bbd8d1387c9065e39beda6ac39e0fb9f10140810a3eb
-      size: 1080
-  original:
-    hackage: crypton-x509-1.7.6@sha256:c567657a705b6d6521f9dd2de999bf530d618ec00f3b939df76a41fb0fe94281,2339
-- completed:
-    hackage: crypton-x509-store-1.6.9@sha256:422b9b9f87a7382c66385d047615b16fc86a68c08ea22b1e0117c143a2d44050,1750
-    pantry-tree:
-      sha256: 87654d130a7f987ee139c821a1be45736d18df9fa4cb1142c4e054d3802338f3
-      size: 406
-  original:
-    hackage: crypton-x509-store-1.6.9@sha256:422b9b9f87a7382c66385d047615b16fc86a68c08ea22b1e0117c143a2d44050,1750
-- completed:
-    hackage: crypton-x509-system-1.6.7@sha256:023ed573d82983bc473a37a89e0434a085b413be9f68d07e085361056afd4637,1532
-    pantry-tree:
-      sha256: c0ca49e6a9537f3fdb7b47c5cfe93f7d744a369bf9d089f3c668b9c2d97402b7
-      size: 399
-  original:
-    hackage: crypton-x509-system-1.6.7@sha256:023ed573d82983bc473a37a89e0434a085b413be9f68d07e085361056afd4637,1532
-- completed:
-    hackage: crypton-x509-validation-1.6.12@sha256:85989721b64be4b90de9f66ef641c26f57575cffed1a50d707065fb60176f386,2227
-    pantry-tree:
-      sha256: d4a0135f11218614fcd912cffaf54de8f749caca8696380e2589cbcfd64cc681
-      size: 639
-  original:
-    hackage: crypton-x509-validation-1.6.12@sha256:85989721b64be4b90de9f66ef641c26f57575cffed1a50d707065fb60176f386,2227
-- completed:
-    hackage: tls-2.0.1@sha256:6f93816f1b67efafe63a91296e047d6218ccdfd355cd17cd47c798871c871444,6046
-    pantry-tree:
-      sha256: 1c33032211c9f98ecd2718fbce45717b846e0799b36ca359c1d0070a213da519
-      size: 6391
-  original:
-    hackage: tls-2.0.1@sha256:6f93816f1b67efafe63a91296e047d6218ccdfd355cd17cd47c798871c871444,6046
-- completed:
-    hackage: crypton-0.34@sha256:9e4b50d79d1fba681befa08151db7223d2b4bb72564853e8530e614105d53a1a,14577
-    pantry-tree:
-      sha256: 85f438e6d328fc2e464c8914a08089ff312044b96ac155a25747512e440e0a12
-      size: 23275
-  original:
-    hackage: crypton-0.34@sha256:9e4b50d79d1fba681befa08151db7223d2b4bb72564853e8530e614105d53a1a,14577
 snapshots:
 - completed:
     sha256: a81fb3877c4f9031e1325eb3935122e608d80715dc16b586eb11ddbff8671ecd

@@ -43,11 +43,6 @@ dependencies:
   - base64-bytestring
   - bytestring >=0.10
   - containers >= 0.5
-  - crypton-connection
-  - crypton-x509 >=1.7
-  - crypton-x509-store >=1.6
-  - crypton-x509-system >=1.6
-  - crypton-x509-validation >=1.6
   - data-default-class >=0.1
   - either >=5.0
   - filepath >=1.4
@@ -72,3 +67,19 @@ dependencies:
   - typed-process >=0.2
   - uri-bytestring >=0.3
   - yaml >=0.8.32
+when:
+- condition: impl(ghc >= 9.6)
+  then:
+    dependencies:
+    - crypton-connection
+    - crypton-x509 >=1.7
+    - crypton-x509-store >=1.6
+    - crypton-x509-system >=1.6
+    - crypton-x509-validation >=1.6
+  else:
+    dependencies:
+    - connection
+    - x509 >=1.7
+    - x509-store >=1.6
+    - x509-system >=1.6
+    - x509-validation >=1.6
