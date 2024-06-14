@@ -47,7 +47,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - uses: haskell/actions/setup@v2
+    - uses: haskell-actions/setup@v2
       with:
         ghc-version: ${{ matrix.ghc }}
         enable-stack: true
