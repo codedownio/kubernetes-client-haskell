@@ -152,6 +152,7 @@ data Context = Context
   , namespace :: Maybe Text
   } deriving (Eq, Generic, Show, Typeable)
 
+contextJSONOptions :: Options
 contextJSONOptions =
     camelToWithOverrides '-' (Map.fromList [("authInfo", "user")])
 
