@@ -31,6 +31,12 @@
             # Fix a bound
             ${pkgs.gnused}/bin/sed -i 's/\(http-api-data >= 0.3.4 &&\) <0.6/\1 <0.7/' "$out/kubernetes-client-core.cabal"
           '';
+
+          set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-client.sh" ''
+            export KUBERNETES_VERSION="$1"
+
+            ${pkgs.gnused}/bin/sed -i "s/^- kubernetes-\(1\.\)[0-9]\+/- kubernetes-$KUBERNETES_VERSION/" stack.yaml
+          '';
         };
       });
 }
