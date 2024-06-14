@@ -50,6 +50,20 @@ packages:
       size: 639
   original:
     hackage: crypton-x509-validation-1.6.12@sha256:85989721b64be4b90de9f66ef641c26f57575cffed1a50d707065fb60176f386,2227
+- completed:
+    hackage: tls-2.0.1@sha256:6f93816f1b67efafe63a91296e047d6218ccdfd355cd17cd47c798871c871444,6046
+    pantry-tree:
+      sha256: 1c33032211c9f98ecd2718fbce45717b846e0799b36ca359c1d0070a213da519
+      size: 6391
+  original:
+    hackage: tls-2.0.1@sha256:6f93816f1b67efafe63a91296e047d6218ccdfd355cd17cd47c798871c871444,6046
+- completed:
+    hackage: crypton-0.34@sha256:9e4b50d79d1fba681befa08151db7223d2b4bb72564853e8530e614105d53a1a,14577
+    pantry-tree:
+      sha256: 85f438e6d328fc2e464c8914a08089ff312044b96ac155a25747512e440e0a12
+      size: 23275
+  original:
+    hackage: crypton-0.34@sha256:9e4b50d79d1fba681befa08151db7223d2b4bb72564853e8530e614105d53a1a,14577
 snapshots:
 - completed:
     sha256: a81fb3877c4f9031e1325eb3935122e608d80715dc16b586eb11ddbff8671ecd
