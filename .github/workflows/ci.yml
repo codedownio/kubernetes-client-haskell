@@ -8,35 +8,12 @@ jobs:
       fail-fast: false
       matrix:
         ghc:
-        - "8.10.7"
-        - "9.0.2"
-        - "9.2.8"
+        # - "8.10.7"
+        # - "9.0.2"
+        # - "9.2.8"
         - "9.4.8"
         - "9.6.5"
         - "9.8.2"
-        # k8s_release:
-        # # Choose a subset of these to ease the load on CI
-        # - "1.25"
-        # - "1.26"
-        # - "1.27"
-        # - "1.28"
-        # - "1.29"
-        # - "1.30"
-    steps:
-    - uses: actions/checkout@v4
-    - uses: haskell-actions/setup@v2
-      with:
-        ghc-version: ${{ matrix.compiler.ghc }}
-        cabal-version: '3.8.1.0'
-    - run: cabal build all --enable-tests
-    - run: cabal test all
-
-  stack:
-    name: Stack / Kubernetes ${{ matrix.k8s_release }} / GHC ${{ matrix.compiler.ghc }}
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
         k8s_release:
         # Choose a subset of these to ease the load on CI
         # - "1.20"
@@ -50,15 +27,48 @@ jobs:
         - "1.28"
         - "1.29"
         - "1.30"
+    steps:
+    - uses: actions/checkout@v4
+    - uses: haskell-actions/setup@v2
+      with:
+        ghc-version: ${{ matrix.compiler.ghc }}
+        cabal-version: '3.8.1.0'
+    - run: |
+        nix run .#set-cabal-version -- "${{matrix.k8s_release}}" cabal.project
+        cabal build all --enable-tests
+    - run: |
+        cabal test all
+
+  stack:
+    name: Stack / Kubernetes ${{ matrix.k8s_release }} / GHC ${{ matrix.compiler.ghc }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      # This full matrix at time of writing is 11 K8S versions * 7 compiler versions = 77,
+      # which is a little big for CI.
+      # Commented some older versions of each to make it manageable.
+      matrix:
+        k8s_release:
+        # - "1.20"
+        # - "1.21"
+        # - "1.22"
+        # - "1.23"
+        # - "1.24"
+        - "1.25"
+        - "1.26"
+        - "1.27"
+        - "1.28"
+        - "1.29"
+        - "1.30"
         compiler:
-        - ghc: "8.10.7"
-          yaml: "stack-8.10.7.yaml"
-        - ghc: "9.0.2"
-          yaml: "stack-9.0.2-aeson1.yaml"
-        - ghc: "9.0.2"
-          yaml: "stack-9.0.2-aeson2.yaml"
-        - ghc: "9.2.8"
-          yaml: "stack-9.2.8.yaml"
+        # - ghc: "8.10.7"
+        #   yaml: "stack-8.10.7.yaml"
+        # - ghc: "9.0.2"
+        #   yaml: "stack-9.0.2-aeson1.yaml"
+        # - ghc: "9.0.2"
+        #   yaml: "stack-9.0.2-aeson2.yaml"
+        # - ghc: "9.2.8"
+        #   yaml: "stack-9.2.8.yaml"
         - ghc: "9.4.8"
           yaml: "stack-9.4.8.yaml"
         - ghc: "9.6.5"

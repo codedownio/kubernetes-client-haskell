@@ -38,6 +38,13 @@
 
             ${pkgs.gnused}/bin/sed -i "s/^- kubernetes-\(1\.\)[0-9]\+/- kubernetes-$KUBERNETES_VERSION/" "$STACK_YAML"
           '';
+
+          set-cabal-version = pkgs.writeShellScriptBin "build-kubernetes-client.sh" ''
+            export KUBERNETES_VERSION="$1"
+            CABAL_PROJECT="$2"
+
+            ${pkgs.gnused}/bin/sed -i "s/^  kubernetes-\(1\.\)[0-9]\+/- kubernetes-$KUBERNETES_VERSION/" "$CABAL_PROJECT"
+          '';
         };
       });
 }
