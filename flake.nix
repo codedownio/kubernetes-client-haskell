@@ -43,7 +43,7 @@
             export KUBERNETES_VERSION="$1"
             CABAL_PROJECT="$2"
 
-            ${pkgs.gnused}/bin/sed -i "s/^  kubernetes-\(1\.\)[0-9]\+/- kubernetes-$KUBERNETES_VERSION/" "$CABAL_PROJECT"
+            ${pkgs.gnused}/bin/sed -i "s/^  kubernetes-\(1\.\)[0-9]\+/  kubernetes-$KUBERNETES_VERSION/" "$CABAL_PROJECT"
           '';
         };
       });
