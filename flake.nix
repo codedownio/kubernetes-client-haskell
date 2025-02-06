@@ -44,7 +44,7 @@
             export KUBERNETES_VERSION="$1"
             STACK_YAML="$2"
 
-            ${pkgs.gnused}/bin/sed -i "s/^- kubernetes-api-\(1\.\)[0-9]\+/- kubernetesapi--$KUBERNETES_VERSION/" "$STACK_YAML"
+            ${pkgs.gnused}/bin/sed -i "s/^- kubernetes-api-\(1\.\)[0-9]\+/- kubernetes-api-$KUBERNETES_VERSION/" "$STACK_YAML"
           '';
 
           set-cabal-version = pkgs.writeShellScriptBin "build-kubernetes-client.sh" ''
