@@ -45,6 +45,15 @@
 
             # Delete openapi.yaml from the extra-source-files
             ${pkgs.gnused}/bin/sed -i '/^\s*openapi\.yaml$/d' "$out/kubernetes-api.cabal"
+
+            # Update the resolver in stack.yaml and add a Nix stanza
+            ${pkgs.gnused}/bin/sed -i 's/^resolver:\s*.*$/resolver: lts-23.7/' "$out/stack.yaml"
+            cat << EOM >> $out/stack.yaml
+            nix:
+              pure: false
+              packages:
+              - zlib
+            EOM
           '';
 
           set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-api-client.sh" ''
