@@ -1,4 +1,4 @@
-# kubernetes-client
+# kubernetes-api-client
 
 ## Example
 
@@ -121,7 +121,7 @@ a parser to a stream:
 
 
 ```haskell
-import Data.Aeson 
+import Data.Aeson
 import qualified Data.ByteString.Streaming.Char8 as Q
 import Data.JsonStream.Parser
 import qualified Streaming.Prelude as S
@@ -146,7 +146,7 @@ parseEvent parser byteStream = S.map (parseByteString parser) (S.mapped Q.toStri
 
 Next, define the parser and apply it to the stream:
 
-```haskell 
+```haskell
 > eventParser = value :: Parser (WatchEvent V1Endpoints)
 > withResponseBody body = streamParse eventParser body & S.map (map eventType)
 > dispatchWatch manager config request (S.print . withResponseBody)

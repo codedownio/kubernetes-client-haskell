@@ -22,7 +22,7 @@ export KUBERNETES_BRANCH="release-${KUBERNETES_VERSION}"
 export CLIENT_VERSION="${KUBERNETES_VERSION}.0"
 
 # Name of the release package
-export PACKAGE_NAME="kubernetes"
+export PACKAGE_NAME="kubernetes-api"
 
 export USERNAME="kubernetes"
 
