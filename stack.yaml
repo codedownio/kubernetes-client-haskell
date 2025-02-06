@@ -1,11 +1,11 @@
-resolver: nightly-2024-06-12
+resolver: lts-23.7
 
 # This repo contains multiple versions of kubernetes-api, in the
 # kubernetes-api-* directories.
 # You should use exactly one to build kubernetes-client against, or
 # else Stack will get confused.
 packages:
-- kubernetes-api-1.20
+- kubernetes-api-1.30
 - kubernetes-api-client
 
 extra-deps:
