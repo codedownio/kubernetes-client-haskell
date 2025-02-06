@@ -1,7 +1,7 @@
 resolver: nightly-2024-06-12
 
-# This repo contains multiple versions of kubernetes-client-core, in the
-# kubernetes-* directories.
+# This repo contains multiple versions of kubernetes-api, in the
+# kubernetes-api-* directories.
 # You should use exactly one to build kubernetes-client against, or
 # else Stack will get confused.
 packages:
