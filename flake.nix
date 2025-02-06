@@ -20,12 +20,16 @@
           ];
         };
 
+        clientMinorVersion = "0";
+
       in {
         packages = {
           generate = pkgs.writeShellScriptBin "generate-kubernetes-api.sh" ''
             export KUBERNETES_VERSION="$1"
             PACKAGE_VERSION="$2"
             out="kubernetes-api-$KUBERNETES_VERSION"
+
+            export CLIENT_MINOR_VERSION=${clientMinorVersion}
 
             # Generate
             ${pkgs.bash}/bin/bash "${patched-gen}/openapi/haskell.sh" "$out" settings
