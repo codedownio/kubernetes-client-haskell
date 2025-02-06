@@ -55,6 +55,9 @@
               packages:
               - zlib
             EOM
+
+            # Remove unnecessary files
+            git clean -fdx "$out"
           '';
 
           set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-api-client.sh" ''
