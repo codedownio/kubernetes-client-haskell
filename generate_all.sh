@@ -3,10 +3,8 @@
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$SCRIPTDIR"
 
-# The first argument is the Kubernetes release to use.
+# The first argument to the generate script is the Kubernetes release to use.
 # The second is the package version to place in ./kubernetes-<K8S version>/kubernetes-api.cabal.
-# The idea is to use the patch number for our own purposes, incrementing when we need to update
-# the kubernetes-api library.
 
 MINOR_VERSION=0
 

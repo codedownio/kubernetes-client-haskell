@@ -16,7 +16,7 @@
           generate = pkgs.writeShellScriptBin "generate-kubernetes-api.sh" ''
             export KUBERNETES_VERSION="$1"
             PACKAGE_VERSION="$2"
-            out="kubernetes-$KUBERNETES_VERSION"
+            out="kubernetes-api-$KUBERNETES_VERSION"
 
             # Generate
             ${pkgs.bash}/bin/bash "${gen}/openapi/haskell.sh" "$out" settings
@@ -31,18 +31,18 @@
             ${pkgs.gnused}/bin/sed -i '/^\s*openapi\.yaml$/d' "$out/kubernetes-api.cabal"
           '';
 
-          set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-client.sh" ''
+          set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-api-client.sh" ''
             export KUBERNETES_VERSION="$1"
             STACK_YAML="$2"
 
-            ${pkgs.gnused}/bin/sed -i "s/^- kubernetes-\(1\.\)[0-9]\+/- kubernetes-$KUBERNETES_VERSION/" "$STACK_YAML"
+            ${pkgs.gnused}/bin/sed -i "s/^- kubernetes-api-\(1\.\)[0-9]\+/- kubernetesapi--$KUBERNETES_VERSION/" "$STACK_YAML"
           '';
 
           set-cabal-version = pkgs.writeShellScriptBin "build-kubernetes-client.sh" ''
             export KUBERNETES_VERSION="$1"
             CABAL_PROJECT="$2"
 
-            ${pkgs.gnused}/bin/sed -i "s/^  kubernetes-\(1\.\)[0-9]\+/  kubernetes-$KUBERNETES_VERSION/" "$CABAL_PROJECT"
+            ${pkgs.gnused}/bin/sed -i "s/^  kubernetes-api-\(1\.\)[0-9]\+/  kubernetes-api-$KUBERNETES_VERSION/" "$CABAL_PROJECT"
           '';
         };
       });
