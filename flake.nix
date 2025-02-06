@@ -34,6 +34,9 @@
             # Generate
             ${pkgs.bash}/bin/bash "${patched-gen}/openapi/haskell.sh" "$out" settings
 
+            # Copy handwritten files
+            cp ${./handwritten/CustomTypes.hs} "$out/lib/Kubernetes/OpenAPI/CustomTypes.hs"
+
             # Fill in the package version
             ${pkgs.gnused}/bin/sed -i "s/^version:\s*\(.*\)/version:        $PACKAGE_VERSION/" "$out/kubernetes-api.cabal"
 
