@@ -1,7 +1,6 @@
 packages:
-  kubernetes-1.21
-  kubernetes-client
-  examples
+  kubernetes-api-1.21
+  kubernetes-api-client
 
 source-repository-package
   type: git
