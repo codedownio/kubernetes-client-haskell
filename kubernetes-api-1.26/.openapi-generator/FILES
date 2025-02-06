@@ -1,9 +1,10 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 README.md
 Setup.hs
 git_push.sh
-kubernetes-client-core.cabal
+kubernetes-api.cabal
 lib/Kubernetes/OpenAPI.hs
 lib/Kubernetes/OpenAPI/API/Admissionregistration.hs
 lib/Kubernetes/OpenAPI/API/AdmissionregistrationV1.hs

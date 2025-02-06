@@ -1,0 +1,13 @@
+diff --git a/openapi/haskell-http-client.xml b/openapi/haskell-http-client.xml
+index f36c401..1172b8f 100644
+--- a/openapi/haskell-http-client.xml
++++ b/openapi/haskell-http-client.xml
+@@ -27,7 +27,7 @@
+                                 <packageName>${generator.package.name}</packageName>
+                                 <packageVersion>${generator.client.version}</packageVersion>
+                                 <allowNonUniqueOperationIds>true</allowNonUniqueOperationIds>
+-                                <cabalPackage>kubernetes-client-core</cabalPackage>
++                                <cabalPackage>kubernetes-api</cabalPackage>
+                                 <baseModule>Kubernetes.OpenAPI</baseModule>
+                                 <requestType>KubernetesRequest</requestType>
+                                 <configType>KubernetesClientConfig</configType>

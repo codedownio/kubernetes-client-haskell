@@ -60,7 +60,7 @@ These options allow some customization of the code generation process.
 | allowNonUniqueOperationIds      | allow *different* API modules to contain the same operationId. Each API must be imported qualified                            | false    | true    |
 | allowToJsonNulls                | allow emitting JSON Null during model encoding to JSON                                                                        | false    | false                |
 | baseModule                      | Set the base module namespace                                                                                                 |          | Kubernetes.OpenAPI                      |
-| cabalPackage                    | Set the cabal package name, which consists of one or more alphanumeric words separated by hyphens                             |          | kubernetes-client-core                    |
+| cabalPackage                    | Set the cabal package name, which consists of one or more alphanumeric words separated by hyphens                             |          | kubernetes-api                    |
 | cabalVersion                    | Set the cabal version number, consisting of a sequence of one or more integers separated by dots                              | 0.1.0.0  | 0.1.0.0                    |
 | customTestInstanceModule        | test module used to provide typeclass instances for types not known by the generator                                          |          | CustomInstances        |
 | configType                      | Set the name of the type used for configuration                                                                               |          | KubernetesClientConfig                      |

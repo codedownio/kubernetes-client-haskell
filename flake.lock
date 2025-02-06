@@ -21,11 +21,11 @@
     "gen": {
       "flake": false,
       "locked": {
-        "lastModified": 1716569711,
-        "narHash": "sha256-SKEbJlkskwVZcA+OUAnjPjHwfADV8TXxfxzu+8kpFBw=",
+        "lastModified": 1738693139,
+        "narHash": "sha256-iVSka7aVU72gb9O/r7NVptD6NkF471CXR1MycFyZzlU=",
         "owner": "kubernetes-client",
         "repo": "gen",
-        "rev": "2658f902d35aed7fcf1823b442eb87b44d812ac1",
+        "rev": "7f27576537138547f1b45ff9f0d1000df2721d47",
         "type": "github"
       },
       "original": {

@@ -1,6 +1,6 @@
-name:           kubernetes-client-core
+name:           kubernetes-api
 version:        1.26.0
-synopsis:       Auto-generated kubernetes-client-core API Client
+synopsis:       Auto-generated kubernetes-api API Client
 description:    .
                 Client library for calling the Kubernetes API based on http-client.
                 .
@@ -61,7 +61,7 @@ library
     , unordered-containers
     , vector >=0.10.9 && <0.14
   other-modules:
-      Paths_kubernetes_client_core
+      Paths_kubernetes_api
       Kubernetes.OpenAPI.ImportMappings
   exposed-modules:
       Kubernetes.OpenAPI
@@ -146,7 +146,7 @@ test-suite tests
       tests
   ghc-options: -Wall -fno-warn-orphans
   build-depends:
-      kubernetes-client-core
+      kubernetes-api
     , QuickCheck
     , aeson
     , base >=4.7 && <5.0

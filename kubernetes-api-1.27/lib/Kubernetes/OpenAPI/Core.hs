@@ -100,14 +100,14 @@ instance P.Show KubernetesClientConfig where
 --
 -- configUserAgent:
 --
--- @"kubernetes-client-core/0.1.0.0"@
+-- @"kubernetes-api/0.1.0.0"@
 --
 newConfig :: IO KubernetesClientConfig
 newConfig = do
     logCxt <- initLogContext
     return $ KubernetesClientConfig
         { configHost = "http://localhost"
-        , configUserAgent = "kubernetes-client-core/0.1.0.0"
+        , configUserAgent = "kubernetes-api/0.1.0.0"
         , configLogExecWithContext = runDefaultLogExecWithContext
         , configLogContext = logCxt
         , configAuthMethods = []

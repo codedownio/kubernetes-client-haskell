@@ -11,6 +11,15 @@
       let
         pkgs = import nixpkgs { inherit system; };
 
+        # Patch gen to update the cabal file name
+        patched-gen = pkgs.applyPatches {
+          name = "kubernetes-gen";
+          src = gen;
+          patches = [
+            ./gen-change-cabal-name.patch
+          ];
+        };
+
       in {
         packages = {
           generate = pkgs.writeShellScriptBin "generate-kubernetes-api.sh" ''
@@ -19,7 +28,7 @@
             out="kubernetes-api-$KUBERNETES_VERSION"
 
             # Generate
-            ${pkgs.bash}/bin/bash "${gen}/openapi/haskell.sh" "$out" settings
+            ${pkgs.bash}/bin/bash "${patched-gen}/openapi/haskell.sh" "$out" settings
 
             # Fill in the package version
             ${pkgs.gnused}/bin/sed -i "s/^version:\s*\(.*\)/version:        $PACKAGE_VERSION/" "$out/kubernetes-api.cabal"
