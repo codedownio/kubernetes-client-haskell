@@ -37,6 +37,7 @@
 
             # Copy handwritten files
             cp ${./handwritten/CustomTypes.hs} "$out/lib/Kubernetes/OpenAPI/CustomTypes.hs"
+            cp ${./handwritten/CustomInstances.hs} "$out/tests/CustomInstances.hs"
 
             # Fill in the package version
             ${pkgs.gnused}/bin/sed -i "s/^version:\s*\(.*\)/version:        $PACKAGE_VERSION/" "$out/kubernetes-api.cabal"
@@ -55,9 +56,6 @@
               packages:
               - zlib
             EOM
-
-            # Remove unnecessary files
-            git clean -fdx "$out"
           '';
 
           set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-api-client.sh" ''
