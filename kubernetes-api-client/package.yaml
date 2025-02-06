@@ -6,8 +6,7 @@ description: |
   This package contains hand-written code while kubernetes-api contains code auto-generated from the OpenAPI spec.
 synopsis: Client library for Kubernetes
 maintainer:
-- Shimin Guo <smguo2001@gmail.com>
-- Akshay Mankar <itsakshaymankar@gmail.com>
+- Tom McLaughlin <tom@codedown.io>
 category: Web
 license: Apache-2.0
 license-file: LICENSE

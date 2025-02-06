@@ -15,9 +15,9 @@ description:    .
                 Generator version: 7.12.0-SNAPSHOT
                 .
 category:       Web
-homepage:       https://github.com/kubernetes-client/haskell
+homepage:       https://github.com/codedownio/kubernetes-api
 author:         Auto Generated
-maintainer:     Shimin Guo <smguo2001@gmail.com>, Akshay Mankar <itsakshaymankar@gmail.com>
+maintainer:     Tom McLaughlin <tom@codedown.io>
 license:        Apache-2.0
 license-file:   LICENSE
 build-type:     Simple

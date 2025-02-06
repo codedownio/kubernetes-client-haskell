@@ -11,8 +11,7 @@ description:    Client library for interacting with a Kubernetes cluster.
                 .
                 This package contains hand-written code while kubernetes-api contains code auto-generated from the OpenAPI spec.
 category:       Web
-maintainer:     Shimin Guo <smguo2001@gmail.com>,
-                Akshay Mankar <itsakshaymankar@gmail.com>
+maintainer:     Tom McLaughlin <tom@codedown.io>
 license:        Apache-2.0
 license-file:   LICENSE
 build-type:     Simple

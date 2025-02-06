@@ -17,6 +17,7 @@
           src = gen;
           patches = [
             ./gen-change-cabal-name.patch
+            ./gen-cabal-metadata.patch
           ];
         };
 

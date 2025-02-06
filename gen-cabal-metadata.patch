@@ -1,0 +1,16 @@
+diff --git a/openapi/haskell.sh b/openapi/haskell.sh
+index 50f8d44..bb84d4d 100755
+--- a/openapi/haskell.sh
++++ b/openapi/haskell.sh
+@@ -52,9 +52,9 @@ CLIENT_LANGUAGE=haskell-http-client; \
+ CLEANUP_DIRS=(lib/Kubernetes/OpenAPI/API); \
+ kubeclient::generator::generate_client "${OUTPUT_DIR}"
+ 
+-CABAL_OVERRIDES=(homepage https://github.com/kubernetes-client/haskell
++CABAL_OVERRIDES=(homepage https://github.com/codedownio/kubernetes-api
+            author "Auto Generated"
+-           maintainer "Shimin Guo <smguo2001@gmail.com>, Akshay Mankar <itsakshaymankar@gmail.com>"
++           maintainer "Tom McLaughlin <tom@codedown.io>"
+            license Apache-2.0)
+ 
+ patch_cabal_file() {
