@@ -4,20 +4,16 @@
     url = "github:kubernetes-client/gen";
     flake = false;
   };
-  inputs.gitignore = {
-    url = "github:hercules-ci/gitignore.nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
   inputs.nixpkgs.url = "github:nixos/nixpkgs?ref=release-24.05";
 
-  outputs = { self, flake-utils, gen, gitignore, nixpkgs }:
+  outputs = { self, flake-utils, gen, nixpkgs }:
     flake-utils.lib.eachSystem ["x86_64-linux"] (system:
       let
         pkgs = import nixpkgs { inherit system; };
 
       in {
-        packages = rec {
-          generate = pkgs.writeShellScriptBin "generate-kubernetes-client-core.sh" ''
+        packages = {
+          generate = pkgs.writeShellScriptBin "generate-kubernetes-api.sh" ''
             export KUBERNETES_VERSION="$1"
             PACKAGE_VERSION="$2"
             out="kubernetes-$KUBERNETES_VERSION"
@@ -26,13 +22,13 @@
             ${pkgs.bash}/bin/bash "${gen}/openapi/haskell.sh" "$out" settings
 
             # Fill in the package version
-            ${pkgs.gnused}/bin/sed -i "s/^version:\s*\(.*\)/version:        $PACKAGE_VERSION/" "$out/kubernetes-client-core.cabal"
+            ${pkgs.gnused}/bin/sed -i "s/^version:\s*\(.*\)/version:        $PACKAGE_VERSION/" "$out/kubernetes-api.cabal"
 
             # Fix a bound
-            ${pkgs.gnused}/bin/sed -i 's/\(http-api-data >= 0.3.4 &&\) <0.6/\1 <0.7/' "$out/kubernetes-client-core.cabal"
+            ${pkgs.gnused}/bin/sed -i 's/\(http-api-data >= 0.3.4 &&\) <0.6/\1 <0.7/' "$out/kubernetes-api.cabal"
 
             # Delete openapi.yaml from the extra-source-files
-            ${pkgs.gnused}/bin/sed -i '/^\s*openapi\.yaml$/d' "$out/kubernetes-client-core.cabal"
+            ${pkgs.gnused}/bin/sed -i '/^\s*openapi\.yaml$/d' "$out/kubernetes-api.cabal"
           '';
 
           set-stack-version = pkgs.writeShellScriptBin "build-kubernetes-client.sh" ''
